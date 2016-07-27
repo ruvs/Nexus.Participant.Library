@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
-using Nexus.Participant.Library.Middleware.OwinConfiguration;
+using Nexus.ParticipantLibrary.Middleware.OwinConfiguration;
 
-[assembly: OwinStartup(typeof(Nexus.Participant.Library.Startup))]
+[assembly: OwinStartup(typeof(Nexus.ParticipantLibrary.Startup))]
 
-namespace Nexus.Participant.Library
+namespace Nexus.ParticipantLibrary
 {
     public class Startup
     {

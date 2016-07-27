@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace Nexus.Participant.Library
+namespace Nexus.ParticipantLibrary
 {
     public static class WebApiConfig
     {

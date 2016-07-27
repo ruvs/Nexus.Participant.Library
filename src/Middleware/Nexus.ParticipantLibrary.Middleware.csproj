@@ -7,10 +7,11 @@
     <ProjectGuid>{13598D03-7E66-446D-946D-301F37B754D3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nexus.Participant.Library.Middleware</RootNamespace>
-    <AssemblyName>Nexus.Participant.Library.Middleware</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Nexus.ParticipantLibrary.Middleware</RootNamespace>
+    <AssemblyName>Nexus.ParticipantLibrary.Middleware</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

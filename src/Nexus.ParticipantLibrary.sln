@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Participant.Library.Api", "Api\Nexus.Participant.Library.Api.csproj", "{D0608DDF-2351-48F8-972F-8589D07A3E17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.ParticipantLibrary.Api", "Api\Nexus.ParticipantLibrary.Api.csproj", "{D0608DDF-2351-48F8-972F-8589D07A3E17}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E2A0A819-5C1D-4F4B-8456-3F8E63774115}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Participant.Library.UnitTests", "Tests\Nexus.Participant.Library.UnitTests\Nexus.Participant.Library.UnitTests.csproj", "{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{705C8F77-A5CF-46C9-851A-C10F6893ABAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Participant.Library.Middleware", "Middleware\Nexus.Participant.Library.Middleware.csproj", "{13598D03-7E66-446D-946D-301F37B754D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.ParticipantLibrary.Middleware", "Middleware\Nexus.ParticipantLibrary.Middleware.csproj", "{13598D03-7E66-446D-946D-301F37B754D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.ParticipantLibrary.UnitTests", "Tests\Nexus.ParticipantLibrary.UnitTests\Nexus.ParticipantLibrary.UnitTests.csproj", "{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,21 +23,21 @@ Global
 		{D0608DDF-2351-48F8-972F-8589D07A3E17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0608DDF-2351-48F8-972F-8589D07A3E17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0608DDF-2351-48F8-972F-8589D07A3E17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13598D03-7E66-446D-946D-301F37B754D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13598D03-7E66-446D-946D-301F37B754D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13598D03-7E66-446D-946D-301F37B754D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13598D03-7E66-446D-946D-301F37B754D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D0608DDF-2351-48F8-972F-8589D07A3E17} = {705C8F77-A5CF-46C9-851A-C10F6893ABAC}
-		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790} = {E2A0A819-5C1D-4F4B-8456-3F8E63774115}
 		{13598D03-7E66-446D-946D-301F37B754D3} = {705C8F77-A5CF-46C9-851A-C10F6893ABAC}
+		{EB6DC9A3-7CBA-4645-A4DA-C6D5FA50F790} = {E2A0A819-5C1D-4F4B-8456-3F8E63774115}
 	EndGlobalSection
 EndGlobal

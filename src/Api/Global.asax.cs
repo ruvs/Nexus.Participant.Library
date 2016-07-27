@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 
-namespace Nexus.Participant.Library
+namespace Nexus.ParticipantLibrary
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

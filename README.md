@@ -1,1 +1,1 @@
-# Nexus.Participant.Library
+# Nexus.ParticipantLibrary

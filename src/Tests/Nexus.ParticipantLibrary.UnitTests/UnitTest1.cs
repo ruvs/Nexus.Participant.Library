@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Nexus.Participant.Library.UnitTests
+namespace Nexus.ParticipantLibrary.UnitTests
 {
     public class UnitTest1
     {

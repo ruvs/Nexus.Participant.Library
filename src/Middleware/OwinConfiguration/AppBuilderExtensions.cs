@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin.Extensions;
 using Owin;
 
-namespace Nexus.Participant.Library.Middleware.OwinConfiguration
+namespace Nexus.ParticipantLibrary.Middleware.OwinConfiguration
 {
     public static class AppBuilderExtensions
     {

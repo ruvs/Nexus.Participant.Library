@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 
-namespace Nexus.Participant.Library.Controllers
+namespace Nexus.Participant.Library.Middleware.Controllers
 {
     [RoutePrefix("participants")]
     public class ParticipantLibraryController : ApiController

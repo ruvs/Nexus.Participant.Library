@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ParticipantLibraryController.cs" />
     <Compile Include="WebApiConfig.cs" />
     <Compile Include="OwinConfiguration\AppBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,11 +1,10 @@
-﻿using Xunit;
-using System.Runtime;
+﻿using NUnit.Framework;
 
 namespace Nexus.ParticipantLibrary.UnitTests
 {
     public class UnitTest1
     {
-        [Fact]
+        [Test]
         public void TestMethod1()
         {
         }

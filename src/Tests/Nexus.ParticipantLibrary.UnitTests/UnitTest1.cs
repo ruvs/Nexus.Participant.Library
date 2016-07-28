@@ -1,4 +1,5 @@
 ﻿using Xunit;
+using System.Runtime;
 
 namespace Nexus.ParticipantLibrary.UnitTests
 {

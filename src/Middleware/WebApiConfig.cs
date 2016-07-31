@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace Nexus.ParticipantLibrary
 {
@@ -10,6 +7,7 @@ namespace Nexus.ParticipantLibrary
         public static HttpConfiguration Configure()
         {
             var config = new HttpConfiguration();
+            config.EnableCors();
             config.MapHttpAttributeRoutes();
             return config;
         }

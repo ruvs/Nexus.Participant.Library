@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using Nexus.ParticipantLibrary.Middleware;
+using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace Nexus.ParticipantLibrary
@@ -9,7 +10,14 @@ namespace Nexus.ParticipantLibrary
         {
             var config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
+            EnableCorsFromConfig(config);
             return config;
+        }
+
+        private static void EnableCorsFromConfig(HttpConfiguration config)
+        {
+            var cors = new EnableCorsAttribute(ConfigHelper.CorsOrigins, "*", "*");
+            config.EnableCors(cors);
         }
 
         //public static HttpConfiguration Configure(IAmAnEndorsementCatalogLibrary library, IEndorsementCatalogLogger logger)

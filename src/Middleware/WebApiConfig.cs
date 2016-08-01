@@ -16,7 +16,13 @@ namespace Nexus.ParticipantLibrary
 
         private static void EnableCorsFromConfig(HttpConfiguration config)
         {
-            var cors = new EnableCorsAttribute(ConfigHelper.CorsOrigins, "*", "*");
+            var origins = ConfigHelper.CorsOrigins;
+            //TODO - should remove if check to force config values to be set
+            if (string.IsNullOrEmpty(origins))
+            {
+                origins = "*";
+            }
+            var cors = new EnableCorsAttribute(origins, "*", "*");
             config.EnableCors(cors);
         }
 

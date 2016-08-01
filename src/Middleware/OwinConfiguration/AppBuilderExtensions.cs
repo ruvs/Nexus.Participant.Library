@@ -9,6 +9,7 @@ namespace Nexus.ParticipantLibrary.Middleware.OwinConfiguration
         {
             app.UseStageMarker(PipelineStage.MapHandler);
             app.UseWebApi(WebApiConfig.Configure());
+            CorsHelper.Register(app);
             return app;
         }
 

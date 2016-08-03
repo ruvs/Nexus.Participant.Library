@@ -1,4 +1,5 @@
 ﻿using Nexus.ParticipantLibrary.Middleware;
+using System.Diagnostics;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -22,6 +23,8 @@ namespace Nexus.ParticipantLibrary
             {
                 origins = "*";
             }
+
+            Debug.WriteLine("Adding cors origins: {origins}");
             var cors = new EnableCorsAttribute(origins, "*", "*");
             config.EnableCors(cors);
         }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 using Nexus.ParticipantLibrary.Middleware.OwinConfiguration;
+using Nexus.ParticipantLibrary.Middleware.Configuration;
 
 [assembly: OwinStartup(typeof(Nexus.ParticipantLibrary.Startup))]
 
@@ -16,10 +17,13 @@ namespace Nexus.ParticipantLibrary
         public void Configuration(IAppBuilder app)
         {
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
-            
+
             //IEndorsementCatalogLogger logWriter = new EndorsementCatalogLogger();
+
+            IAppSettings apiAppSettings = new ApiAppSettings();
+
             app.Map("/api", parLibApp =>
-                    parLibApp.UseParticipantLibraryCore());
+                    parLibApp.UseParticipantLibraryCore(apiAppSettings));
             //app.Map("/api", parLibApp =>
             //        parLibApp.UseEndorsementCatalogLibraryCore(BootStrapQuestionLibrary(logWriter), logWriter));
         }
@@ -38,6 +42,12 @@ namespace Nexus.ParticipantLibrary
 
         //return catalogLibrary;
         //}
+    }
+
+
+    internal class ApiAppSettings : IAppSettings
+    {
+        public string CorsOrigins { get; set; }
     }
 
     //internal class ClaimsPrincipalResolver : IResolveClaimsPrincipal

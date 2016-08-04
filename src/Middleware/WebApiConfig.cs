@@ -9,17 +9,17 @@ namespace Nexus.ParticipantLibrary
     {
         private static HttpConfiguration config;
 
-        public static HttpConfiguration Configure()
+        public static HttpConfiguration Configure(IAppSettings appSettings)
         {
             config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
-            EnableCorsFromAppSettings();
+            EnableCorsFromAppSettings(appSettings);
             return config;
         }
 
-        private static void EnableCorsFromAppSettings()
+        private static void EnableCorsFromAppSettings(IAppSettings appSettings)
         {
-            var origins = AppSettings.CorsOrigins;
+            var origins = appSettings.CorsOrigins;
 
             if (string.IsNullOrEmpty(origins))
             {

@@ -1,7 +1,7 @@
 ﻿namespace Nexus.ParticipantLibrary.Middleware.Configuration
 {
-    public static class AppSettings
+    public class AppSettings : IAppSettings
     {
-        public static string CorsOrigins { get; set; }
+        public string CorsOrigins { get; set; }
     }
 }

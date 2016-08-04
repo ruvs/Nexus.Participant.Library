@@ -6,10 +6,10 @@ namespace Nexus.ParticipantLibrary.Middleware.OwinConfiguration
 {
     public static class AppBuilderExtensions
     {
-        public static IAppBuilder UseParticipantLibraryCore(this IAppBuilder app)
+        public static IAppBuilder UseParticipantLibraryCore(this IAppBuilder app, IAppSettings appSettings)
         {
             app.UseStageMarker(PipelineStage.MapHandler);
-            app.UseWebApi(WebApiConfig.Configure());
+            app.UseWebApi(WebApiConfig.Configure(appSettings));
             CorsHelper.Register(app);
             return app;
         }

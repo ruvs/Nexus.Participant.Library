@@ -19,10 +19,10 @@ namespace Nexus.ParticipantLibrary
         {
             var origins = ConfigHelper.CorsOrigins;
             //TODO - should remove if check to force config values to be set
-            if (string.IsNullOrEmpty(origins))
-            {
-                origins = "*";
-            }
+            //if (string.IsNullOrEmpty(origins))
+            //{
+            //    origins = "*";
+            //}
 
             Debug.WriteLine("Adding cors origins: {origins}");
             var cors = new EnableCorsAttribute(origins, "*", "*");

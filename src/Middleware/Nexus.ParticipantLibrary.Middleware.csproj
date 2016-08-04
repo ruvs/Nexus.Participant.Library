@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
+    <Compile Include="Configuration\AppSettings.cs" />
     <Compile Include="Controllers\ParticipantLibraryController.cs" />
     <Compile Include="CorsHelper.cs" />
     <Compile Include="WebApiConfig.cs" />

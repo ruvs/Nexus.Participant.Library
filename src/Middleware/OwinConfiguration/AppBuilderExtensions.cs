@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin.Extensions;
+using Nexus.ParticipantLibrary.Middleware.Configuration;
 using Owin;
 
 namespace Nexus.ParticipantLibrary.Middleware.OwinConfiguration

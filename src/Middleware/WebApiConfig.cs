@@ -1,5 +1,5 @@
-﻿using Nexus.ParticipantLibrary.Middleware;
-using System.Diagnostics;
+﻿using Nexus.ParticipantLibrary.Middleware.Configuration;
+using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -7,24 +7,25 @@ namespace Nexus.ParticipantLibrary
 {
     public static class WebApiConfig
     {
+        private static HttpConfiguration config;
+
         public static HttpConfiguration Configure()
         {
-            var config = new HttpConfiguration();
+            config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
-            EnableCorsFromConfig(config);
+            EnableCorsFromAppSettings();
             return config;
         }
 
-        private static void EnableCorsFromConfig(HttpConfiguration config)
+        private static void EnableCorsFromAppSettings()
         {
-            var origins = ConfigHelper.CorsOrigins;
-            //TODO - should remove if check to force config values to be set
-            //if (string.IsNullOrEmpty(origins))
-            //{
-            //    origins = "*";
-            //}
+            var origins = AppSettings.CorsOrigins;
 
-            Debug.WriteLine("Adding cors origins: {origins}");
+            if (string.IsNullOrEmpty(origins))
+            {
+                throw new Exception("CorsOrigin has not been set on AppSettings.");
+            }
+
             var cors = new EnableCorsAttribute(origins, "*", "*");
             config.EnableCors(cors);
         }

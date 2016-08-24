@@ -104,6 +104,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nexus.ParticipantLibrary.Core\Nexus.ParticipantLibrary.Core.csproj">
+      <Project>{DB59E527-8E4F-41D8-AC1D-C40B3AC018A9}</Project>
+      <Name>Nexus.ParticipantLibrary.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

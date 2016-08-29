@@ -10,10 +10,11 @@ using Nexus.ParticipantLibrary.Core.Configuration;
 using Nexus.ParticipantLibrary.Core.Logging;
 using Nexus.ParticipantLibrary.Data._Config;
 using NLog;
+using Nexus.ParticipantLibrary.Api;
 
-[assembly: OwinStartup(typeof(Nexus.ParticipantLibrary.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
-namespace Nexus.ParticipantLibrary
+namespace Nexus.ParticipantLibrary.Api
 {
     public class Startup
     {

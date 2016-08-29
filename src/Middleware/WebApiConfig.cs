@@ -3,7 +3,8 @@ using Nexus.ParticipantLibrary.Middleware.Configuration;
 using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Http.ExceptionHandling;
+using Nexus.ParticipantLibrary.Middleware.OwinConfiguration;
+using System.Web.Http.Dispatcher;
 
 namespace Nexus.ParticipantLibrary
 {
@@ -37,7 +38,7 @@ namespace Nexus.ParticipantLibrary
         {
             var nanoContainer = new NanoContainer();
             nanoContainer.Register(library);
-            //config.Services.Replace(typeof(IHttpControllerActivator), new ManualControllerActivation(nanoContainer));
+            config.Services.Replace(typeof(IHttpControllerActivator), new ManualControllerActivation(nanoContainer));
             //config.Services.Replace(typeof(IExceptionHandler), new ParticipantLibraryExceptionHandler());
             //config.Services.Add(typeof(IExceptionLogger), new ParticipantLibraryExceptionLogger(logger));
         }

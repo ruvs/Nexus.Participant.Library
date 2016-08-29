@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
 using Nexus.ParticipantLibrary.Data.Domain;
 
 namespace Nexus.ParticipantLibrary.Data.Context
@@ -10,7 +9,7 @@ namespace Nexus.ParticipantLibrary.Data.Context
         {
         }
 
-        public ParticipantLibraryContext(DbContextOptions options) : base(options)
+        public ParticipantLibraryContext(DbContextOptions<ParticipantLibraryContext> options) : base(options)
         {
         }
 

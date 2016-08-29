@@ -6,6 +6,7 @@ namespace Nexus.ParticipantLibrary.Data.Domain
 {
     public class ParticipantLibraryItem
     {
+        [Key]
         public Guid NexusKey { get; set; } //Key
         public int Id { get; set; } //Required
         [Required]

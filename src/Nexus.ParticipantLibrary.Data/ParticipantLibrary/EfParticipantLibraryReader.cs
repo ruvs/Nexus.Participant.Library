@@ -7,6 +7,7 @@ using Nexus.ParticipantLibrary.Core.Library;
 using Nexus.ParticipantLibrary.ApiContract.Dtos;
 using Nexus.ParticipantLibrary.Data.Context;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 {
@@ -14,10 +15,13 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
         //DapperSelfInitializingReaderBase, 
         IReadFromParticipantLibrary
     {
+        private DbContextOptionsBuilder<ParticipantLibraryContext> optionsBuilder;
 
         public EfParticipantLibraryReader(IStoreReadConnectionConfig readConnectionConfig) 
             //: base(readConnectionConfig,EndorsementCatalogStatements.InitializeDatabase)
         {
+            optionsBuilder = new DbContextOptionsBuilder<ParticipantLibraryContext>();
+            optionsBuilder.UseSqlServer(readConnectionConfig.ConnectionString);
         }
 
         public IEnumerable<ParticipantLibraryItem> ReadAll()
@@ -26,22 +30,23 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
             try
             {
-                using (var db = new ParticipantLibraryContext())
+                using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
                     dtos = db.ParticipantLibraryItems.AsEnumerable();
-                }
 
-                var toReturn = new List<ParticipantLibraryItem>();
-                foreach (var dto in dtos)
-                {
-                    toReturn.Add(Mapper.Map<ParticipantLibraryItemEfDto>(dto));
-                }
 
-                return toReturn;
+                    var toReturn = new List<ParticipantLibraryItem>();
+                    foreach (var dto in dtos)
+                    {
+                        toReturn.Add(Mapper.Map<ParticipantLibraryItemEfDto>(dto));
+                    }
+
+                    return toReturn;
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             //using (var connection = new SqlConnection(ConnectionStringRead))
@@ -61,7 +66,7 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
             try
             {
-                using (var db = new ParticipantLibraryContext())
+                using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
                     dto = db.ParticipantLibraryItems.SingleOrDefault(p => p.NexusKey == key);
                 }
@@ -69,9 +74,9 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
                 var toReturn = Mapper.Map<ParticipantLibraryItemEfDto>(dto);
                 return toReturn;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -81,7 +86,7 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
             try
             {
-                using (var db = new ParticipantLibraryContext())
+                using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
                     dtos = db.ParticipantLibraryItems.Where(p => p.TypeKey == typeKey).AsEnumerable();
                 }
@@ -94,9 +99,9 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
                 return toReturn;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }

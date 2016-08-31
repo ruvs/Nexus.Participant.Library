@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
 using Nexus.ParticipantLibrary.Data.Context;
 using Nexus.ParticipantLibrary.Data.Domain;
 using NUnit.Framework;
@@ -13,7 +13,7 @@ namespace Nexus.ParticipantLibrary.UnitTests
         [SetUp]
         public void Setup()
         {
-            var dbOptions = new DbContextOptionsBuilder();
+            var dbOptions = new DbContextOptionsBuilder<ParticipantLibraryContext>();
             dbOptions.UseInMemoryDatabase();
 
             plContext = new ParticipantLibraryContext(dbOptions.Options);

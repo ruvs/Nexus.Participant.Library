@@ -1,16 +1,11 @@
-﻿using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
 using Nexus.ParticipantLibrary.Data.Domain;
 
 namespace Nexus.ParticipantLibrary.Data.Context
 {
     public class ParticipantLibraryContext : DbContext
     {
-        public ParticipantLibraryContext() : base()
-        {
-        }
-
-        public ParticipantLibraryContext(DbContextOptions options) : base(options)
+        public ParticipantLibraryContext(DbContextOptions<ParticipantLibraryContext> options) : base(options)
         {
         }
 

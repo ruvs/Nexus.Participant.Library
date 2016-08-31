@@ -92,6 +92,7 @@
     <Compile Include="Configuration\IAppSettings.cs" />
     <Compile Include="Controllers\ParticipantLibraryController.cs" />
     <Compile Include="CorsHelper.cs" />
+    <Compile Include="OwinConfiguration\ManualControllerActivation.cs" />
     <Compile Include="WebApiConfig.cs" />
     <Compile Include="OwinConfiguration\AppBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +106,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nexus.ParticipantLibrary.ApiContract\Nexus.ParticipantLibrary.ApiContract.csproj">
+      <Project>{377af48e-1ad9-480e-9cb3-eb6bc455cc1f}</Project>
+      <Name>Nexus.ParticipantLibrary.ApiContract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nexus.ParticipantLibrary.Core\Nexus.ParticipantLibrary.Core.csproj">
       <Project>{DB59E527-8E4F-41D8-AC1D-C40B3AC018A9}</Project>
       <Name>Nexus.ParticipantLibrary.Core</Name>

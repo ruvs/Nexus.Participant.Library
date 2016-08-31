@@ -5,10 +5,6 @@ namespace Nexus.ParticipantLibrary.Data.Context
 {
     public class ParticipantLibraryContext : DbContext
     {
-        public ParticipantLibraryContext() : base()
-        {
-        }
-
         public ParticipantLibraryContext(DbContextOptions<ParticipantLibraryContext> options) : base(options)
         {
         }

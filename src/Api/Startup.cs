@@ -11,6 +11,8 @@ using Nexus.ParticipantLibrary.Core.Logging;
 using Nexus.ParticipantLibrary.Data._Config;
 using NLog;
 using Nexus.ParticipantLibrary.Api;
+using Nexus.ParticipantLibrary.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -28,16 +30,16 @@ namespace Nexus.ParticipantLibrary.Api
 
             if (webConfigFile.AppSettings.Settings.Count > 0)
             {
-                KeyValueConfigurationElement corsOrigins =
-                    webConfigFile.AppSettings.Settings["CorsOrigins"];
-                if (corsOrigins != null)
-                {
-                    apiAppSettings.CorsOrigins = corsOrigins.Value;
-                }
-                else
-                {
-                    Debug.WriteLine("No CorsOrigins application setting");
-                }
+                apiAppSettings.CorsOrigins = ApiAppSettings.GetAppSettingValue("CorsOrigins");
+            }
+
+            if (webConfigFile.ConnectionStrings.ConnectionStrings.Count > 0)
+            {
+                apiAppSettings.ConnectionString_ParticipantLibrary_Read = 
+                    ApiAppSettings.GetConnectionStringValue("ParticipantLibrary_Read");
+
+                apiAppSettings.ConnectionString_ParticipantLibrary_Write = 
+                    ApiAppSettings.GetConnectionStringValue("ParticipantLibrary_Write");
             }
         }
 
@@ -53,6 +55,10 @@ namespace Nexus.ParticipantLibrary.Api
 
             app.Map("/api", parLibApp =>
                     parLibApp.UseParticipantLibraryCore(apiAppSettings, BootStrapParticipantLibrary(logWriter)));
+
+            var optionsBuilder = new DbContextOptionsBuilder<ParticipantLibraryContext>();
+            optionsBuilder.UseSqlServer(apiAppSettings.ConnectionString_ParticipantLibrary_Read);
+            var ctx = new ParticipantLibraryContext(optionsBuilder.Options);
         }
 
         private IAmAParticipantLibrary BootStrapParticipantLibrary(IParticipantLibraryLogger logWriter)
@@ -75,6 +81,39 @@ namespace Nexus.ParticipantLibrary.Api
     internal class ApiAppSettings : IAppSettings
     {
         public string CorsOrigins { get; set; }
+        public string ConnectionString_ParticipantLibrary_Read { get; set; }
+        public string ConnectionString_ParticipantLibrary_Write { get; set; }
+
+        public static string GetAppSettingValue(string keyName)
+        {
+            Configuration webConfigFile = WebConfigurationManager.OpenWebConfiguration("/");
+
+            if (webConfigFile.AppSettings.Settings[keyName] != null)
+            {
+                KeyValueConfigurationElement configItem = webConfigFile.AppSettings.Settings[keyName];
+                return configItem.Value;
+            }
+            else
+            {
+                Debug.WriteLine($"No '{keyName}' application setting found.");
+                return string.Empty;
+            }
+        }
+        public static string GetConnectionStringValue(string keyName)
+        {
+            Configuration webConfigFile = WebConfigurationManager.OpenWebConfiguration("/");
+
+            if (webConfigFile.ConnectionStrings.ConnectionStrings[keyName] != null)
+            {
+                ConnectionStringSettings configItem = webConfigFile.ConnectionStrings.ConnectionStrings[keyName];
+                return configItem.ConnectionString;
+            }
+            else
+            {
+                Debug.WriteLine($"No '{keyName}' connection string found.");
+                return string.Empty;
+            }
+        }
     }
 
     //internal class ClaimsPrincipalResolver : IResolveClaimsPrincipal

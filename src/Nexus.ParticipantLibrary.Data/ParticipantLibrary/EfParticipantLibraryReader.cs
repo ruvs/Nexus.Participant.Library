@@ -66,7 +66,7 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
             try
             {
-                using (var db = new ParticipantLibraryContext())
+                using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
                     dto = db.ParticipantLibraryItems.SingleOrDefault(p => p.NexusKey == key);
                 }
@@ -86,7 +86,7 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
             try
             {
-                using (var db = new ParticipantLibraryContext())
+                using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
                     dtos = db.ParticipantLibraryItems.Where(p => p.TypeKey == typeKey).AsEnumerable();
                 }

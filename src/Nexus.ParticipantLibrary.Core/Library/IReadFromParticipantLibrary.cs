@@ -6,8 +6,10 @@ namespace Nexus.ParticipantLibrary.Core.Library
 {
     public interface IReadFromParticipantLibrary
     {
-        ParticipantLibraryItem ReadByKey(Guid key);
-        IEnumerable<ParticipantLibraryItem> ReadAll();
-        IEnumerable<ParticipantLibraryItem> ReadByType(Guid typeKkey);
+        ParticipantLibraryItemDto ReadByKey(Guid key);
+        IEnumerable<ParticipantLibraryItemDto> ReadAll();
+        IEnumerable<ParticipantLibraryItemDto> ReadByType(Guid typeKkey);
+        ParticipantLibraryItemTypeDto ReadTypeByKey(Guid key);
+        IEnumerable<ParticipantLibraryItemTypeDto> ReadAllTypes();
     }
 }

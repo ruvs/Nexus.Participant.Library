@@ -2,7 +2,7 @@
 
 namespace Nexus.ParticipantLibrary.ApiContract.Dtos
 {
-    public class ParticipantLibraryItemType
+    public class ParticipantLibraryItemTypeDto
     {
         public Guid NexusKey { get; set; }
         public int Id { get; set; }

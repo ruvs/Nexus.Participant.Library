@@ -6,7 +6,7 @@ namespace Nexus.ParticipantLibrary.ApiContract.Queries
     public class GetParticipantLibraryItemByKeyQuery : IParticipantLibrarySingleQuery
     {
         public Guid Key { get; set; }
-        public ParticipantLibraryItem Result { get; set; }
+        public ParticipantLibraryItemDto Result { get; set; }
 
         public GetParticipantLibraryItemByKeyQuery(Guid key)
         {

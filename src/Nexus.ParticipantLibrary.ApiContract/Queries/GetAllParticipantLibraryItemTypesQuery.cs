@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Nexus.ParticipantLibrary.ApiContract.Queries
 {
-    public class GetAllParticipantLibraryItemsQuery : IParticipantLibraryMultiQuery
+    public class GetAllParticipantLibraryItemTypesQuery : IParticipantLibraryItemTypeMultiQuery
     {
-        public GetAllParticipantLibraryItemsQuery()
+        public GetAllParticipantLibraryItemTypesQuery()
         {
         }
 
@@ -14,7 +14,7 @@ namespace Nexus.ParticipantLibrary.ApiContract.Queries
             get { return string.Format(""); }
         }
 
-        public IEnumerable<ParticipantLibraryItemDto> Result { get; set; }
+        public IEnumerable<ParticipantLibraryItemTypeDto> Result { get; set; }
 
         public override string ToString()
         {

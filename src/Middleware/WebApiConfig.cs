@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Nexus.ParticipantLibrary.Middleware.OwinConfiguration;
 using System.Web.Http.Dispatcher;
+using System.Linq;
 
 namespace Nexus.ParticipantLibrary
 {
@@ -18,7 +19,13 @@ namespace Nexus.ParticipantLibrary
             config.MapHttpAttributeRoutes();
             ConfigureParticipantLibrary(library);
             EnableCorsFromAppSettings(appSettings);
+            DisableXmlSerializer();
             return config;
+        }
+
+        private static void DisableXmlSerializer()
+        {
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
         }
 
         private static void EnableCorsFromAppSettings(IAppSettings appSettings)

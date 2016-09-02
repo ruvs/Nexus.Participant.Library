@@ -19,6 +19,7 @@ namespace Nexus.ParticipantLibrary.Middleware.OwinConfiguration
         public IHttpController Create(HttpRequestMessage request, HttpControllerDescriptor controllerDescriptor,
             Type controllerType)
         {
+
             if (controllerType == typeof(ParticipantLibraryController))
             {
                 var controller = new ParticipantLibraryController(container.Resolve<IAmAParticipantLibrary>());

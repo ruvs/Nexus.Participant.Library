@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Nexus.ParticipantLibrary.ApiContract.Dtos
 {
-    public class ParticipantLibraryItem
+    public class ParticipantLibraryItemDto
     {
         public Guid NexusKey { get; set; }
         public int Id { get; set; }

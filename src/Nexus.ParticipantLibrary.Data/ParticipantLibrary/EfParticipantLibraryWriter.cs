@@ -4,24 +4,19 @@ using Nexus.ParticipantLibrary.ApiContract.Dtos;
 using Nexus.ParticipantLibrary.Core.Library;
 using Nexus.ParticipantLibrary.Data.Context;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 {
     public class EfParticipantLibraryWriter :
-        //DapperSelfInitializingWriterBase, 
+        EfInitialiserBase, 
         IWriteToParticipantLibrary
     {
-        private DbContextOptionsBuilder<ParticipantLibraryContext> optionsBuilder;
-
         public EfParticipantLibraryWriter(IStoreWriteConnectionConfig writeConnectionConfig) 
-            //: base(writeConnectionConfig,EndorsementCatalogStatements.InitializeDatabase)
+            : base(writeConnectionConfig.ConnectionString)
         {
-            optionsBuilder = new DbContextOptionsBuilder<ParticipantLibraryContext>();
-            optionsBuilder.UseSqlServer(writeConnectionConfig.ConnectionString);
         }
 
-        public void Save(ParticipantLibraryItem item)
+        public void Save(ParticipantLibraryItemDto item)
         {
             var dto = Mapper.Map<Domain.ParticipantLibraryItem>(item);
 

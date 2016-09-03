@@ -22,11 +22,6 @@ namespace Nexus.ParticipantLibrary.Data.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            //foreach (var entity in modelBuilder.Model.GetEntityTypes())
-            //{
-            //    modelBuilder.Entity(entity.Name).Property("NexusKey").IsRequired();
-            //}
-
             modelBuilder.Entity<ParticipantLibraryItem>().Property(p => p.NexusKey).IsRequired();
             modelBuilder.Entity<ParticipantLibraryItem>().Property(p => p.Name).IsRequired();
             modelBuilder.Entity<ParticipantLibraryItemType>().Property(p => p.NexusKey).IsRequired();

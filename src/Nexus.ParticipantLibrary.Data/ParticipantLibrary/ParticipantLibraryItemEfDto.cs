@@ -2,8 +2,8 @@ using Nexus.ParticipantLibrary.ApiContract.Dtos;
 
 namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 {
-    internal class ParticipantLibraryItemEfDto : ParticipantLibraryItem
-    {
+    //public class ParticipantLibraryItemEfDto : ParticipantLibraryItem
+    //{
         //public string MetaDataItemsJson
         //{
         //    get { return JsonConvert.SerializeObject(MetaDataItems); }
@@ -15,5 +15,5 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
         //    get { return JsonConvert.SerializeObject(Questions); }
         //    set { Questions = JsonConvert.DeserializeObject<IList<Question>>(value); }
         //}
-    }
+    //}
 }

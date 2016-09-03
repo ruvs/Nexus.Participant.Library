@@ -31,7 +31,7 @@ namespace Nexus.ParticipantLibrary.Core
 
                 Validate(saveParticipantLibraryItemCommand);
                 
-                libraryWriter.Save(new ParticipantLibraryItem()
+                libraryWriter.Save(new ParticipantLibraryItemDto()
                 {
                     NexusKey = saveParticipantLibraryItemCommand.NexusKey,
                     Name = saveParticipantLibraryItemCommand.Name,
@@ -97,7 +97,7 @@ namespace Nexus.ParticipantLibrary.Core
             var getAllParticipantLibraryItemsQuery = query as GetAllParticipantLibraryItemsQuery;
             if (getAllParticipantLibraryItemsQuery != null)
             {
-                getAllParticipantLibraryItemsQuery.Result = 
+                getAllParticipantLibraryItemsQuery.Result =
                     libraryReader.ReadAll();
             }
 
@@ -114,6 +114,21 @@ namespace Nexus.ParticipantLibrary.Core
                 getParticipantLibraryItemsByTypeQuery.Result = 
                     libraryReader.ReadByType(getParticipantLibraryItemsByTypeQuery.TypeKey);
             }
+
+            var getParticipantLibraryItemTypeByKeyQuery = query as GetParticipantLibraryItemTypeByKeyQuery;
+            if (getParticipantLibraryItemTypeByKeyQuery != null)
+            {
+                getParticipantLibraryItemTypeByKeyQuery.Result =
+                    libraryReader.ReadTypeByKey(getParticipantLibraryItemTypeByKeyQuery.Key);
+            }
+
+            var getAllParticipantLibraryItemTypesQuery = query as GetAllParticipantLibraryItemTypesQuery;
+            if (getAllParticipantLibraryItemTypesQuery != null)
+            {
+                getAllParticipantLibraryItemTypesQuery.Result =
+                    libraryReader.ReadAllTypes();
+            }
+
         }
     }
 }

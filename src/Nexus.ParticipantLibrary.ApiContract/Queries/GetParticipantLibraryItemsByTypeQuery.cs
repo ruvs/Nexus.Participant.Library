@@ -7,7 +7,7 @@ namespace Nexus.ParticipantLibrary.ApiContract.Queries
     public class GetParticipantLibraryItemsByTypeQuery : IParticipantLibraryMultiQuery
     {
         public Guid TypeKey { get; set; }
-        public IEnumerable<ParticipantLibraryItem> Result { get; set; }
+        public IEnumerable<ParticipantLibraryItemDto> Result { get; set; }
 
         public GetParticipantLibraryItemsByTypeQuery(Guid typeKey)
         {

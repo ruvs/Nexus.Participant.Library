@@ -36,6 +36,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,12 +47,14 @@
   <ItemGroup>
     <Compile Include="Commands\SaveParticipantLibraryItemCommand.cs" />
     <Compile Include="Commands\IParticipantLibraryCommand.cs" />
-    <Compile Include="Dtos\ParticipantLibraryItemType.cs" />
-    <Compile Include="Dtos\ParticipantLibraryItem.cs" />
+    <Compile Include="Dtos\ParticipantLibraryItemTypeDto.cs" />
+    <Compile Include="Dtos\ParticipantLibraryItemDto.cs" />
     <Compile Include="Exceptions\ParticipantLibraryItemDuplicateItemException.cs" />
     <Compile Include="Exceptions\ParticipantLibraryItemOutOfSequenceException.cs" />
     <Compile Include="Exceptions\ParticipantLibraryItemValidationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetParticipantLibraryItemTypeByKeyQuery.cs" />
+    <Compile Include="Queries\GetAllParticipantLibraryItemTypesQuery.cs" />
     <Compile Include="Queries\GetAllParticipantLibraryItemsQuery.cs" />
     <Compile Include="Queries\GetParticipantLibraryItemsByTypeQuery.cs" />
     <Compile Include="Queries\GetParticipantLibraryItemByKeyQuery.cs" />

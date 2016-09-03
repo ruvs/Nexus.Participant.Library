@@ -230,6 +230,7 @@
       <DependentUpon>20160831210910_CreateTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ParticipantLibraryContextModelSnapshot.cs" />
+    <Compile Include="ParticipantLibrary\EfInitialiserBase.cs" />
     <Compile Include="ParticipantLibrary\EfParticipantLibraryReader.cs" />
     <Compile Include="ParticipantLibrary\EfParticipantLibraryWriter.cs" />
     <Compile Include="ParticipantLibrary\ParticipantLibraryItemEfDto.cs" />

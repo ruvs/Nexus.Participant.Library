@@ -28,6 +28,13 @@ namespace Nexus.ParticipantLibrary.Data._Config
             return this;
         }
 
+        public EfConfigure WithConnectionStrings(string readConnectionString, string writeConnectionString)
+        {
+            Container.Register<IStoreReadConnectionConfig>(new ParticipantLibraryReadConnectionConfig(readConnectionString));
+            Container.Register<IStoreWriteConnectionConfig>(new ParticipantLibraryWriteConnectionConfig(writeConnectionString));
+            return this;
+        }
+
         public override IAmAParticipantLibrary Build()
         {
             var readConnectionConfig = Container.Resolve<IStoreReadConnectionConfig>();

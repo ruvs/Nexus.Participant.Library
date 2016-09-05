@@ -20,7 +20,32 @@ namespace Nexus.ParticipantLibrary
             ConfigureParticipantLibrary(library);
             EnableCorsFromAppSettings(appSettings);
             DisableXmlSerializer();
+            IncludeDetailedError(appSettings);
             return config;
+        }
+
+        private static void IncludeDetailedError(IAppSettings appSettings)
+        {
+            var IncludeErrorDetailPolicyItems = appSettings.IncludeErrorDetailPolicy.Split(',');
+
+            foreach (var includeErrorDetailConfigItem in IncludeErrorDetailPolicyItems)
+            {
+                switch (includeErrorDetailConfigItem)
+                {
+                    case "LocalOnly":
+                        config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.LocalOnly;
+                        break;
+                    case "Always":
+                        config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+                        break;
+                    case "Never":
+                        config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
+                        break;
+                    default:
+                        config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Default;
+                        break;
+                }
+            }
         }
 
         private static void DisableXmlSerializer()

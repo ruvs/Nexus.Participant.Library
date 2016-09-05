@@ -31,6 +31,7 @@ namespace Nexus.ParticipantLibrary.Api
             if (webConfigFile.AppSettings.Settings.Count > 0)
             {
                 apiAppSettings.CorsOrigins = ApiAppSettings.GetAppSettingValue("CorsOrigins");
+                apiAppSettings.IncludeErrorDetailPolicy = ApiAppSettings.GetAppSettingValue("IncludeErrorDetailPolicy");
             }
 
             if (webConfigFile.ConnectionStrings.ConnectionStrings.Count > 0)
@@ -83,6 +84,7 @@ namespace Nexus.ParticipantLibrary.Api
         public string CorsOrigins { get; set; }
         public string ConnectionString_ParticipantLibrary_Read { get; set; }
         public string ConnectionString_ParticipantLibrary_Write { get; set; }
+        public string IncludeErrorDetailPolicy { get; set; }
 
         public static string GetAppSettingValue(string keyName)
         {

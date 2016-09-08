@@ -37,7 +37,6 @@ namespace Nexus.ParticipantLibrary.UnitTests
             var participantLibraryItem = new ParticipantLibraryItem()
             {
                 Name = "Name",
-                ShortName = "N",
             };
 
             plContext.ParticipantLibraryItems.Add(participantLibraryItem);
@@ -52,7 +51,6 @@ namespace Nexus.ParticipantLibrary.UnitTests
             var participantLibraryItem = new ParticipantLibraryItem()
             {
                 Name = null,
-                ShortName = "N",
             };
 
             plContext.ParticipantLibraryItems.Add(participantLibraryItem);

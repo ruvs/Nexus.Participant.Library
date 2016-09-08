@@ -8,8 +8,8 @@ using Nexus.ParticipantLibrary.Data.Context;
 namespace Nexus.ParticipantLibrary.Data.Migrations
 {
     [DbContext(typeof(ParticipantLibraryContext))]
-    [Migration("20160831210910_CreateTables")]
-    partial class CreateTables
+    [Migration("20160908221214_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,12 +22,19 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
                     b.Property<Guid>("NexusKey")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Id");
+                    b.Property<string>("DisplayCode");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired();
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Iso3Code");
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<string>("ShortName");
 
                     b.Property<Guid>("TypeKey");
 
@@ -35,7 +42,7 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
 
                     b.HasIndex("TypeKey");
 
-                    b.ToTable("ParticipantLibraryItems");
+                    b.ToTable("ParticipantLibraryItem");
                 });
 
             modelBuilder.Entity("Nexus.ParticipantLibrary.Data.Domain.ParticipantLibraryItemType", b =>
@@ -43,14 +50,19 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
                     b.Property<Guid>("NexusKey")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Id");
+                    b.Property<string>("DisplayName")
+                        .IsRequired();
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.HasKey("NexusKey");
 
-                    b.ToTable("ParticipantLibraryItemTypes");
+                    b.ToTable("ParticipantLibraryItemType");
                 });
 
             modelBuilder.Entity("Nexus.ParticipantLibrary.Data.Domain.ParticipantLibraryItem", b =>

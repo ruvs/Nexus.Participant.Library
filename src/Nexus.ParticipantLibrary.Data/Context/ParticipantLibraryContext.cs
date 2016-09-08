@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nexus.ParticipantLibrary.Data.Domain;
+using Nexus.ParticipantLibrary.Data.Helpers;
 
 namespace Nexus.ParticipantLibrary.Data.Context
 {
@@ -22,9 +23,13 @@ namespace Nexus.ParticipantLibrary.Data.Context
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.RemovePluralizingTableNameConvention();
+
             modelBuilder.Entity<ParticipantLibraryItem>().Property(p => p.NexusKey).IsRequired();
+            modelBuilder.Entity<ParticipantLibraryItem>().Property(p => p.Id).UseSqlServerIdentityColumn();
             modelBuilder.Entity<ParticipantLibraryItem>().Property(p => p.Name).IsRequired();
             modelBuilder.Entity<ParticipantLibraryItemType>().Property(p => p.NexusKey).IsRequired();
+            modelBuilder.Entity<ParticipantLibraryItemType>().Property(p => p.Id).UseSqlServerIdentityColumn();
             modelBuilder.Entity<ParticipantLibraryItemType>().Property(p => p.Name).IsRequired();
         }
     }

@@ -8,9 +8,10 @@ using Nexus.ParticipantLibrary.Data.Context;
 namespace Nexus.ParticipantLibrary.Data.Migrations
 {
     [DbContext(typeof(ParticipantLibraryContext))]
-    partial class ParticipantLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20160908221205_CreateTables")]
+    partial class CreateTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")

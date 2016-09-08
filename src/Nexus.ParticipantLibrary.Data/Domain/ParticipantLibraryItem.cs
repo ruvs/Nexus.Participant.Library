@@ -8,10 +8,26 @@ namespace Nexus.ParticipantLibrary.Data.Domain
     {
         [Key]
         public Guid NexusKey { get; set; } //Key
-        public int Id { get; set; } //Required
+
         [Required]
+        [Column(Order = 10)]
+        public int Id { get; set; } //Required
+
+        [Required]
+        [Column(Order = 20)]
         public string Name { get; set; } //Required
-        public string ShortName { get; set; }
+
+        [Required]
+        [Column(Order = 30)]
+        public string DisplayName { get; set; } //Required
+
+        [Column(Order = 40)]
+        public string DisplayCode { get; set; }
+
+        [Column(Order = 50)]
+        public string Iso3Code { get; set; }
+
+        [Column(Order = 60)]
         [ForeignKey("Type")]
         public Guid TypeKey { get; set; }
 

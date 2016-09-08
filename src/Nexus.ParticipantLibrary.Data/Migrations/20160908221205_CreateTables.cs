@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Nexus.ParticipantLibrary.Data.Migrations
 {
@@ -9,52 +10,57 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ParticipantLibraryItemTypes",
+                name: "ParticipantLibraryItemType",
                 columns: table => new
                 {
                     NexusKey = table.Column<Guid>(nullable: false),
-                    Id = table.Column<int>(nullable: false),
+                    DisplayName = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ParticipantLibraryItemTypes", x => x.NexusKey);
+                    table.PrimaryKey("PK_ParticipantLibraryItemType", x => x.NexusKey);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ParticipantLibraryItems",
+                name: "ParticipantLibraryItem",
                 columns: table => new
                 {
                     NexusKey = table.Column<Guid>(nullable: false),
-                    Id = table.Column<int>(nullable: false),
+                    DisplayCode = table.Column<string>(nullable: true),
+                    DisplayName = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Iso3Code = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    ShortName = table.Column<string>(nullable: true),
                     TypeKey = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ParticipantLibraryItems", x => x.NexusKey);
+                    table.PrimaryKey("PK_ParticipantLibraryItem", x => x.NexusKey);
                     table.ForeignKey(
-                        name: "FK_ParticipantLibraryItems_ParticipantLibraryItemTypes_TypeKey",
+                        name: "FK_ParticipantLibraryItem_ParticipantLibraryItemType_TypeKey",
                         column: x => x.TypeKey,
-                        principalTable: "ParticipantLibraryItemTypes",
+                        principalTable: "ParticipantLibraryItemType",
                         principalColumn: "NexusKey",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ParticipantLibraryItems_TypeKey",
-                table: "ParticipantLibraryItems",
+                name: "IX_ParticipantLibraryItem_TypeKey",
+                table: "ParticipantLibraryItem",
                 column: "TypeKey");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ParticipantLibraryItems");
+                name: "ParticipantLibraryItem");
 
             migrationBuilder.DropTable(
-                name: "ParticipantLibraryItemTypes");
+                name: "ParticipantLibraryItemType");
         }
     }
 }

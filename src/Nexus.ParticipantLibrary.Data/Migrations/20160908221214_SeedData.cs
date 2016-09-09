@@ -13,7 +13,9 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql($"TRUNCATE TABLE dbo.ParticipantLibraryItem");
 
+            migrationBuilder.Sql($"TRUNCATE TABLE dbo.ParticipantLibraryItemType");
         }
     }
 }

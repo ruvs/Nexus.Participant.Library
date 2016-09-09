@@ -35,7 +35,7 @@ namespace Nexus.ParticipantLibrary.Core
                 {
                     NexusKey = saveParticipantLibraryItemCommand.NexusKey,
                     Name = saveParticipantLibraryItemCommand.Name,
-                    ShortName = saveParticipantLibraryItemCommand.ShortName,
+                    DisplayName = saveParticipantLibraryItemCommand.DisplayName,
                     TypeKey = saveParticipantLibraryItemCommand.TypeKey
                     //Description = saveParticipantLibraryItemCommand.Description,
                     //UsageNotes = saveParticipantLibraryItemCommand.UsageNotes,

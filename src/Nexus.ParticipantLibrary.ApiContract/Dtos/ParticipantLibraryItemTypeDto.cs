@@ -5,8 +5,12 @@ namespace Nexus.ParticipantLibrary.ApiContract.Dtos
     public class ParticipantLibraryItemTypeDto
     {
         public Guid NexusKey { get; set; }
+
         public int Id { get; set; }
+
         public string Name { get; set; }
+
+        public string DisplayName { get; set; }
 
         public override string ToString()
         {

@@ -30,8 +30,9 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    dtos = db.ParticipantLibraryItems.Include(x => x.Type).AsEnumerable();
-
+                    dtos = db.ParticipantLibraryItems
+                        .Include(x => x.Type)
+                        .OrderBy(x => x.DisplayName);
 
                     var toReturn = new List<ParticipantLibraryItemDto>();
                     foreach (var dto in dtos)
@@ -39,7 +40,7 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
                         toReturn.Add(Mapper.Map<ParticipantLibraryItemDto>(dto));
                     }
 
-                    return toReturn;
+                    return toReturn.OrderBy(x => x.DisplayName);
                 }
             }
             catch (Exception ex)
@@ -76,7 +77,10 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    dtos = db.ParticipantLibraryItems.Where(p => p.TypeKey == typeKey).Include(x => x.Type).AsEnumerable();
+                    dtos = db.ParticipantLibraryItems
+                        .Include(x => x.Type)
+                        .Where(p => p.TypeKey == typeKey)
+                        .OrderBy(x => x.DisplayName);
 
                     var toReturn = new List<ParticipantLibraryItemDto>();
                     foreach (var dto in dtos)
@@ -120,7 +124,8 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    dtos = db.ParticipantLibraryItemTypes.AsEnumerable();
+                    dtos = db.ParticipantLibraryItemTypes
+                        .OrderBy(x => x.DisplayName);
 
                     var toReturn = new List<ParticipantLibraryItemTypeDto>();
                     foreach (var dto in dtos)

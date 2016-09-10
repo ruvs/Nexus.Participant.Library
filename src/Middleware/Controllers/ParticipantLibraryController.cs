@@ -41,7 +41,7 @@ namespace Nexus.ParticipantLibrary.Middleware.Controllers
         }
 
         [HttpGet]
-        [Route("{typeKey:Guid}")]
+        [Route("byType/{typeKey:Guid}")]
         public IEnumerable<ParticipantLibraryItemDto> GetByType(Guid typeKey)
         {
             var query = new GetParticipantLibraryItemsByTypeQuery(typeKey);

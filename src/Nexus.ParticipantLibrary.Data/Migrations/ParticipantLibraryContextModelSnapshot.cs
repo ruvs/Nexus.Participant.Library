@@ -30,6 +30,8 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Iso2Code");
+
                     b.Property<string>("Iso3Code");
 
                     b.Property<string>("Name")
@@ -38,6 +40,8 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
                     b.Property<Guid>("TypeKey");
 
                     b.HasKey("NexusKey");
+
+                    b.HasIndex("Name");
 
                     b.HasIndex("TypeKey");
 
@@ -60,6 +64,8 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
                         .IsRequired();
 
                     b.HasKey("NexusKey");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("ParticipantLibraryItemType");
                 });

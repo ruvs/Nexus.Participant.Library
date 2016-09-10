@@ -33,6 +33,7 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
                     DisplayName = table.Column<string>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Iso2Code = table.Column<string>(nullable: true),
                     Iso3Code = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     TypeKey = table.Column<Guid>(nullable: false)
@@ -49,9 +50,19 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ParticipantLibraryItem_Name",
+                table: "ParticipantLibraryItem",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ParticipantLibraryItem_TypeKey",
                 table: "ParticipantLibraryItem",
                 column: "TypeKey");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ParticipantLibraryItemType_Name",
+                table: "ParticipantLibraryItemType",
+                column: "Name");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

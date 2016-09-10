@@ -14,7 +14,7 @@ namespace Nexus.ParticipantLibrary.ApiContract.Dtos
 
         public override string ToString()
         {
-            return string.Format("An {GetType().Name} with Key:'{NexusKey}' Id:'{Id}' Name:'{Name}'");
+            return string.Format($"An {GetType().Name} with Key:'{NexusKey}' Id:'{Id}' Name:'{Name}' DisplayName:'{DisplayName}'");
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Nexus.ParticipantLibrary.ApiContract.Commands
 
         public override string ToString()
         {
-            return string.Format("An {GetType().Name} with Key:'{NexusKey}' Id:'{Id}' Name:'{Name}' Type:'{TypeName}'");
+            return string.Format($"An {GetType().Name} with Key:'{NexusKey}' Id:'{Id}' Name:'{Name}' Type:'{TypeName}' DisplayName:'{DisplayName}' DisplayCode:'{DisplayCode}'");
         }
 
         public string Url

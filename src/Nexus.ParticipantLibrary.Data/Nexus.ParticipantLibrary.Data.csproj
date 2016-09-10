@@ -224,13 +224,13 @@
     <Compile Include="Domain\ParticipantLibraryItemType.cs" />
     <Compile Include="Domain\ParticipantLibraryItem.cs" />
     <Compile Include="Helpers\ModelBuilderExtensions.cs" />
-    <Compile Include="Migrations\20160908221205_CreateTables.cs" />
-    <Compile Include="Migrations\20160908221205_CreateTables.designer.cs">
-      <DependentUpon>20160908221205_CreateTables.cs</DependentUpon>
+    <Compile Include="Migrations\20160910150125_CreateTables.cs" />
+    <Compile Include="Migrations\20160910150125_CreateTables.designer.cs">
+      <DependentUpon>20160910150125_CreateTables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20160908221214_SeedData.cs" />
-    <Compile Include="Migrations\20160908221214_SeedData.designer.cs">
-      <DependentUpon>20160908221214_SeedData.cs</DependentUpon>
+    <Compile Include="Migrations\20160910150134_SeedData.cs" />
+    <Compile Include="Migrations\20160910150134_SeedData.designer.cs">
+      <DependentUpon>20160910150134_SeedData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\MyDataSeeder.cs" />
     <Compile Include="Migrations\ParticipantLibraryContextModelSnapshot.cs" />

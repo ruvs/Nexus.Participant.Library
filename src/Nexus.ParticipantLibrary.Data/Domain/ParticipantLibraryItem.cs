@@ -25,9 +25,12 @@ namespace Nexus.ParticipantLibrary.Data.Domain
         public string DisplayCode { get; set; }
 
         [Column(Order = 50)]
-        public string Iso3Code { get; set; }
+        public string Iso2Code { get; set; }
 
         [Column(Order = 60)]
+        public string Iso3Code { get; set; }
+
+        [Column(Order = 70)]
         [ForeignKey("Type")]
         public Guid TypeKey { get; set; }
 

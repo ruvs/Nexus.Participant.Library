@@ -16,12 +16,12 @@ namespace Nexus.ParticipantLibrary.ApiContract.Commands
         public string DisplayName { get; set; }
         public string Iso3Code { get; set; }
         public Guid TypeKey { get; set; }
-        public string TypeName { get; set; }
+        //public string TypeName { get; set; }
 
 
         public override string ToString()
         {
-            return string.Format($"An {GetType().Name} with Key:'{NexusKey}' Id:'{Id}' Name:'{Name}' Type:'{TypeName}' DisplayName:'{DisplayName}' DisplayCode:'{DisplayCode}'");
+            return string.Format($"An {GetType().Name} with Key:'{NexusKey}' Id:'{Id}' Name:'{Name}' DisplayName:'{DisplayName}' DisplayCode:'{DisplayCode}'");
         }
 
         public string Url

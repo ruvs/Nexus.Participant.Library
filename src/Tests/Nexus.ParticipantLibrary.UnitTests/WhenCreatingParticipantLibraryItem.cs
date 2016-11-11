@@ -1,7 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FakeItEasy;
+using Microsoft.EntityFrameworkCore;
+using Nexus.ParticipantLibrary.ApiContract.Commands;
+using Nexus.ParticipantLibrary.ApiContract.Dtos;
+using Nexus.ParticipantLibrary.Core;
+using Nexus.ParticipantLibrary.Core.Library;
 using Nexus.ParticipantLibrary.Data.Context;
 using Nexus.ParticipantLibrary.Data.Domain;
 using NUnit.Framework;
+using System;
 
 namespace Nexus.ParticipantLibrary.UnitTests
 {
@@ -46,17 +52,31 @@ namespace Nexus.ParticipantLibrary.UnitTests
         }
 
         [Test]
-        public void ShouldNotBeAbleToAddParticipantLibraryItemWithoutAType()
+        public void ShouldAddParticipantLibraryItemViaCommand()
         {
-            var participantLibraryItem = new ParticipantLibraryItem()
+            var saveCommand = new SaveParticipantLibraryItemCommand()
             {
-                Name = null,
+                NexusKey = Guid.NewGuid(),
+                Name = "newName",
+                DisplayCode = "newDisplayCode",
+                DisplayName = "newDisplayName",
+                TypeKey = Guid.NewGuid(),
+                Iso3Code = "NewIso3Code"
             };
 
-            plContext.ParticipantLibraryItems.Add(participantLibraryItem);
-            plContext.SaveChanges();
+            var libraryWriter = A.Fake<IWriteToParticipantLibrary>();
+            var pil = new ParticipantItemLibrary(libraryWriter, A.Fake<IReadFromParticipantLibrary>());
 
-            Assert.IsEmpty(plContext.ParticipantLibraryItems);
+            pil.Execute(saveCommand);
+
+            A.CallTo(() => libraryWriter.Save(A<ParticipantLibraryItemDto>.That.Matches(
+                x => x.NexusKey == saveCommand.NexusKey &&
+                x.DisplayCode == saveCommand.DisplayCode &&
+                x.DisplayName == saveCommand.DisplayName &&
+                x.Iso3Code == saveCommand.Iso3Code &&
+                x.Name == saveCommand.Name &&
+                x.TypeKey == saveCommand.TypeKey
+            ))).MustHaveHappened();
         }
     }
 }

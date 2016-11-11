@@ -4,6 +4,7 @@ using Nexus.ParticipantLibrary.Core.Configuration;
 using Nexus.ParticipantLibrary.ApiContract.Queries;
 using Nexus.ParticipantLibrary.ApiContract.Dtos;
 using System;
+using Nexus.ParticipantLibrary.ApiContract.Commands;
 
 namespace Nexus.ParticipantLibrary.Middleware.Controllers
 {
@@ -20,6 +21,14 @@ namespace Nexus.ParticipantLibrary.Middleware.Controllers
         public ParticipantLibraryController(IAmAParticipantLibrary library)
         {
             this.library = library;
+        }
+
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult Post(SaveParticipantLibraryItemCommand command)
+        {
+            library.Execute(command);
+            return Ok();
         }
 
         [HttpGet]

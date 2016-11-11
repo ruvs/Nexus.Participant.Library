@@ -34,18 +34,11 @@ namespace Nexus.ParticipantLibrary.Core
                 libraryWriter.Save(new ParticipantLibraryItemDto()
                 {
                     NexusKey = saveParticipantLibraryItemCommand.NexusKey,
+                    DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                    Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
                     Name = saveParticipantLibraryItemCommand.Name,
                     DisplayName = saveParticipantLibraryItemCommand.DisplayName,
-                    TypeKey = saveParticipantLibraryItemCommand.TypeKey
-                    //Description = saveParticipantLibraryItemCommand.Description,
-                    //UsageNotes = saveParticipantLibraryItemCommand.UsageNotes,
-                    //DocumentUri = saveParticipantLibraryItemCommand.DocumentUri,
-                    //MetaDataItems = saveParticipantLibraryItemCommand.MetaDataItems,
-                    //Questions = saveParticipantLibraryItemCommand.Questions,
-                    //SourceSystem = saveParticipantLibraryItemCommand.SourceSystem,
-                    //StoredOnBehalfOfUser =  saveParticipantLibraryItemCommand.StoredOnBehalfOfUser,
-                    //StoredByUser = claimsPrincipalResolver.ClaimsPrincipal.Identity.Name,
-                    //EffectiveFrom = DateTime.Now
+                    TypeKey = saveParticipantLibraryItemCommand.TypeKey,
                 });
             }
         }

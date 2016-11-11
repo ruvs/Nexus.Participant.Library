@@ -16,7 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile /> 
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy, Version=2.3.1.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FakeItEasy.2.3.1\lib\net40\FakeItEasy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.EntityFrameworkCore.1.0.0\lib\net451\Microsoft.EntityFrameworkCore.dll</HintPath>
@@ -154,6 +158,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Nexus.ParticipantLibrary.ApiContract\Nexus.ParticipantLibrary.ApiContract.csproj">
+      <Project>{377AF48E-1AD9-480E-9CB3-EB6BC455CC1F}</Project>
+      <Name>Nexus.ParticipantLibrary.ApiContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nexus.ParticipantLibrary.Core\Nexus.ParticipantLibrary.Core.csproj">
+      <Project>{DB59E527-8E4F-41D8-AC1D-C40B3AC018A9}</Project>
+      <Name>Nexus.ParticipantLibrary.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Nexus.ParticipantLibrary.Data\Nexus.ParticipantLibrary.Data.csproj">
       <Project>{e98e46b9-243f-4e2f-8103-c22b69e52312}</Project>
       <Name>Nexus.ParticipantLibrary.Data</Name>

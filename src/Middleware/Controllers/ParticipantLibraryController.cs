@@ -24,7 +24,7 @@ namespace Nexus.ParticipantLibrary.Middleware.Controllers
         }
 
         [HttpPost]
-        [Route("")]
+        [Route("save")]
         public IHttpActionResult Post(SaveParticipantLibraryItemCommand command)
         {
             library.Execute(command);

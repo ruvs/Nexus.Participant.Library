@@ -28,11 +28,13 @@ namespace Nexus.ParticipantLibrary.Data.Context
             modelBuilder.Entity<ParticipantLibraryItem>().Property(p => p.NexusKey).IsRequired();
             modelBuilder.Entity<ParticipantLibraryItem>().Property(p => p.Id).UseSqlServerIdentityColumn();
             modelBuilder.Entity<ParticipantLibraryItem>().Property(p => p.Name).IsRequired();
-            modelBuilder.Entity<ParticipantLibraryItem>().HasIndex(i => i.Name);
+            modelBuilder.Entity<ParticipantLibraryItem>().HasIndex(p => p.Name);
+            modelBuilder.Entity<ParticipantLibraryItem>().HasIndex(p => p.Name).IsUnique();
             modelBuilder.Entity<ParticipantLibraryItemType>().Property(p => p.NexusKey).IsRequired();
             modelBuilder.Entity<ParticipantLibraryItemType>().Property(p => p.Id).UseSqlServerIdentityColumn();
             modelBuilder.Entity<ParticipantLibraryItemType>().Property(p => p.Name).IsRequired();
             modelBuilder.Entity<ParticipantLibraryItemType>().HasIndex(i => i.Name);
+            modelBuilder.Entity<ParticipantLibraryItemType>().HasIndex(i => i.Name).IsUnique();
         }
     }
 }

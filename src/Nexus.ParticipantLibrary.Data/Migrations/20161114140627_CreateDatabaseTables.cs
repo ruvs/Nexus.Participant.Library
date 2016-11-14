@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Nexus.ParticipantLibrary.Data.Migrations
 {
-    public partial class CreateTables : Migration
+    public partial class CreateDatabaseTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,7 +52,8 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ParticipantLibraryItem_Name",
                 table: "ParticipantLibraryItem",
-                column: "Name");
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ParticipantLibraryItem_TypeKey",
@@ -62,7 +63,8 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ParticipantLibraryItemType_Name",
                 table: "ParticipantLibraryItemType",
-                column: "Name");
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

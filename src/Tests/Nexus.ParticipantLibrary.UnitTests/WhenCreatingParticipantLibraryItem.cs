@@ -51,6 +51,27 @@ namespace Nexus.ParticipantLibrary.UnitTests
             Assert.IsNotNull(plContext.ParticipantLibraryItems.CountAsync(x => x.Name == "Name"));
         }
 
+        //[Test]
+        //public void ShouldNotAllowaDuplicateNames()
+        //{
+        //    var participantLibraryItem = new ParticipantLibraryItem()
+        //    {
+        //        Name = "Name",
+        //    };
+
+        //    plContext.ParticipantLibraryItems.Add(participantLibraryItem);
+
+        //    var participantLibraryItem2 = new ParticipantLibraryItem()
+        //    {
+        //        Name = "Name",
+        //    };
+
+        //    plContext.ParticipantLibraryItems.Add(participantLibraryItem2);
+        //    plContext.SaveChanges();
+
+        //    Assert.AreEqual(2, plContext.ParticipantLibraryItems.CountAsync().Result);
+        //}
+
         [Test]
         public void ShouldAddParticipantLibraryItemViaCommand()
         {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Nexus.ParticipantLibrary.Data.Migrations
 {
-    public partial class SeedData : Migration
+    public partial class SeedTheData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

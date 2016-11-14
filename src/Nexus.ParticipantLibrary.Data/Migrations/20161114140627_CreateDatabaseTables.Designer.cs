@@ -8,8 +8,8 @@ using Nexus.ParticipantLibrary.Data.Context;
 namespace Nexus.ParticipantLibrary.Data.Migrations
 {
     [DbContext(typeof(ParticipantLibraryContext))]
-    [Migration("20160910150125_CreateTables")]
-    partial class CreateTables
+    [Migration("20161114140627_CreateDatabaseTables")]
+    partial class CreateDatabaseTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,8 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
 
                     b.HasKey("NexusKey");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("TypeKey");
 
@@ -66,7 +67,8 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
 
                     b.HasKey("NexusKey");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("ParticipantLibraryItemType");
                 });

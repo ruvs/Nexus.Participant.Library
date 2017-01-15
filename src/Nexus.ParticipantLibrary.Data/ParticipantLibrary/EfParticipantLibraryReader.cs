@@ -24,18 +24,18 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
         public IEnumerable<ParticipantLibraryItemDto> ReadAll()
         {
-            IEnumerable<ParticipantLibraryItem> dtos;
+            IEnumerable<ParticipantLibraryItem> domainPlItems;
 
             try
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    dtos = db.ParticipantLibraryItems
+                    domainPlItems = db.ParticipantLibraryItems
                         .Include(x => x.Type)
                         .OrderBy(x => x.DisplayName);
 
                     var toReturn = new List<ParticipantLibraryItemDto>();
-                    foreach (var dto in dtos)
+                    foreach (var dto in domainPlItems)
                     {
                         toReturn.Add(Mapper.Map<ParticipantLibraryItemDto>(dto));
                     }
@@ -51,16 +51,44 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
         public ParticipantLibraryItemDto ReadByKey(Guid key)
         {
-            ParticipantLibraryItem dto;
+            ParticipantLibraryItem domainPli;
 
             try
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    dto = db.ParticipantLibraryItems.SingleOrDefault(p => p.NexusKey == key);
+                    domainPli = db.ParticipantLibraryItems.SingleOrDefault(p => p.NexusKey == key);
                 }
 
-                var toReturn = Mapper.Map<ParticipantLibraryItemDto>(dto);
+                var toReturn = Mapper.Map<ParticipantLibraryItemDto>(domainPli);
+                return toReturn;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ParticipantLibraryItemDetailsDto ReadDetailsByKey(Guid key)
+        {
+            ParticipantLibraryItem domainPli;
+            List<ParticipantLibraryItemType> domainTypes;
+
+            try
+            {
+                using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
+                {
+                    domainPli = db.ParticipantLibraryItems.SingleOrDefault(p => p.NexusKey == key);
+                    domainTypes = db.ParticipantLibraryItemTypes.ToList();
+                }
+
+                var toReturn = Mapper.Map<ParticipantLibraryItemDetailsDto>(domainPli);
+
+                foreach(var domainType in domainTypes)
+                {
+                    toReturn.Types.Add(Mapper.Map<ParticipantLibraryItemTypeDto>(domainType));
+                }
+
                 return toReturn;
             }
             catch (Exception ex)
@@ -71,19 +99,19 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
         public IEnumerable<ParticipantLibraryItemDto> ReadByType(Guid typeKey)
         {
-            IEnumerable<ParticipantLibraryItem> dtos;
+            IEnumerable<ParticipantLibraryItem> domainPlItems;
 
             try
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    dtos = db.ParticipantLibraryItems
+                    domainPlItems = db.ParticipantLibraryItems
                         .Include(x => x.Type)
                         .Where(p => p.TypeKey == typeKey)
                         .OrderBy(x => x.DisplayName);
 
                     var toReturn = new List<ParticipantLibraryItemDto>();
-                    foreach (var dto in dtos)
+                    foreach (var dto in domainPlItems)
                     {
                         toReturn.Add(Mapper.Map<ParticipantLibraryItemDto>(dto));
                     }
@@ -98,15 +126,15 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
         }
         public ParticipantLibraryItemTypeDto ReadTypeByKey(Guid key)
         {
-            ParticipantLibraryItemType dto;
+            ParticipantLibraryItemType domainPlType;
 
             try
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    dto = db.ParticipantLibraryItemTypes.SingleOrDefault(x => x.NexusKey == key);
+                    domainPlType = db.ParticipantLibraryItemTypes.SingleOrDefault(x => x.NexusKey == key);
 
-                    var toReturn = Mapper.Map<ParticipantLibraryItemTypeDto>(dto);
+                    var toReturn = Mapper.Map<ParticipantLibraryItemTypeDto>(domainPlType);
                     return toReturn;
                 }
             }
@@ -118,17 +146,17 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
         public IEnumerable<ParticipantLibraryItemTypeDto> ReadAllTypes()
         {
-            IEnumerable<ParticipantLibraryItemType> dtos;
+            IEnumerable<ParticipantLibraryItemType> domainPlTypes;
 
             try
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    dtos = db.ParticipantLibraryItemTypes
+                    domainPlTypes = db.ParticipantLibraryItemTypes
                         .OrderBy(x => x.DisplayName);
 
                     var toReturn = new List<ParticipantLibraryItemTypeDto>();
-                    foreach (var dto in dtos)
+                    foreach (var dto in domainPlTypes)
                     {
                         toReturn.Add(Mapper.Map<ParticipantLibraryItemTypeDto>(dto));
                     }

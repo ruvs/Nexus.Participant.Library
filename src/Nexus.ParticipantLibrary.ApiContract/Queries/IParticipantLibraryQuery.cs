@@ -13,6 +13,11 @@ namespace Nexus.ParticipantLibrary.ApiContract.Queries
         ParticipantLibraryItemDto Result { get; set; }
     }
 
+    public interface IParticipantLibraryDetailsSingleQuery : IParticipantLibraryQuery
+    {
+        ParticipantLibraryItemDetailsDto Result { get; set; }
+    }
+
     public interface IParticipantLibraryMultiQuery : IParticipantLibraryQuery
     {
         IEnumerable<ParticipantLibraryItemDto> Result { get; set; }

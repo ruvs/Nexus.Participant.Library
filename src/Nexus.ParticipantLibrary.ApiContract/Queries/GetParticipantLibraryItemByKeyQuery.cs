@@ -8,14 +8,16 @@ namespace Nexus.ParticipantLibrary.ApiContract.Queries
         public Guid Key { get; set; }
         public ParticipantLibraryItemDto Result { get; set; }
 
+        public GetParticipantLibraryItemByKeyQuery()
+        {
+        }
         public GetParticipantLibraryItemByKeyQuery(Guid key)
         {
             Key = key;
         }
-
         public string Url
         {
-            get { return string.Format("{0}",Key); }
+            get { return string.Format("{0}", Key); }
         }
     }
 }

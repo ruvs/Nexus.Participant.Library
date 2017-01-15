@@ -11,7 +11,7 @@
     <AssemblyName>Nexus.ParticipantLibrary.ApiContract</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile /> 
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,12 +48,14 @@
   <ItemGroup>
     <Compile Include="Commands\SaveParticipantLibraryItemCommand.cs" />
     <Compile Include="Commands\IParticipantLibraryCommand.cs" />
+    <Compile Include="Dtos\ParticipantLibraryItemDetailsDto.cs" />
     <Compile Include="Dtos\ParticipantLibraryItemTypeDto.cs" />
     <Compile Include="Dtos\ParticipantLibraryItemDto.cs" />
     <Compile Include="Exceptions\ParticipantLibraryItemDuplicateItemException.cs" />
     <Compile Include="Exceptions\ParticipantLibraryItemOutOfSequenceException.cs" />
     <Compile Include="Exceptions\ParticipantLibraryItemValidationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetParticipantLibraryItemDetailsByKeyQuery.cs" />
     <Compile Include="Queries\GetParticipantLibraryItemTypeByKeyQuery.cs" />
     <Compile Include="Queries\GetAllParticipantLibraryItemTypesQuery.cs" />
     <Compile Include="Queries\GetAllParticipantLibraryItemsQuery.cs" />

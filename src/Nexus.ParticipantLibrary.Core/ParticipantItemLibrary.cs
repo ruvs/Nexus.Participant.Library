@@ -101,6 +101,13 @@ namespace Nexus.ParticipantLibrary.Core
                     libraryReader.ReadByKey(getParticipantLibraryItemByKeyQuery.Key);
             }
 
+            var getParticipantLibraryItemDetailsByKeyQuery = query as GetParticipantLibraryItemDetailsByKeyQuery;
+            if (getParticipantLibraryItemDetailsByKeyQuery != null)
+            {
+                getParticipantLibraryItemDetailsByKeyQuery.Result =
+                    libraryReader.ReadDetailsByKey(getParticipantLibraryItemDetailsByKeyQuery.Key);
+            }
+
             var getParticipantLibraryItemsByTypeQuery = query as GetParticipantLibraryItemsByTypeQuery;
             if (getParticipantLibraryItemsByTypeQuery != null)
             {

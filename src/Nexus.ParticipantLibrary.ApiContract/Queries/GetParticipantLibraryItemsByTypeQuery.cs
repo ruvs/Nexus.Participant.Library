@@ -9,6 +9,10 @@ namespace Nexus.ParticipantLibrary.ApiContract.Queries
         public Guid TypeKey { get; set; }
         public IEnumerable<ParticipantLibraryItemDto> Result { get; set; }
 
+        public GetParticipantLibraryItemsByTypeQuery()
+        {
+        }
+
         public GetParticipantLibraryItemsByTypeQuery(Guid typeKey)
         {
             TypeKey = typeKey;

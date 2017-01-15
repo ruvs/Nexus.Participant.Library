@@ -39,6 +39,10 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
                 CreateMap<ParticipantLibraryItemType, ParticipantLibraryItemTypeDto>();
                 CreateMap<ParticipantLibraryItemTypeDto, ParticipantLibraryItemType>();
 
+                CreateMap<ParticipantLibraryItem, ParticipantLibraryItemDetailsDto>();
+                //CreateMap<ParticipantLibraryItemDetailsDto, ParticipantLibraryItem>();
+
+                //map.UseValue(Enum.GetNames(typeof(ScheduleStatus)).ToArray()))
                 //CreateMap<ParticipantLibraryItem, ParticipantLibraryItemDto>()
                 //    .ForMember(m => m.TypeName, opt => opt.MapFrom(m => m.Type.Name));
             }

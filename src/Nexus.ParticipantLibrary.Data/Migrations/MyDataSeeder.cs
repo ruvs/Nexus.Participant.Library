@@ -165,7 +165,7 @@ namespace Nexus.ParticipantLibrary.Data.Migrations
             pliItems.Add(new ParticipantLibraryItem { Name = "NEP", Iso2Code="NP", DisplayName = "Nepal", DisplayCode = "NEP", Iso3Code = "NPL" });
             pliItems.Add(new ParticipantLibraryItem { Name = "NGA", Iso2Code="NG", DisplayName = "Nigeria", DisplayCode = "NGA", Iso3Code = "NGA" });
             pliItems.Add(new ParticipantLibraryItem { Name = "NIG", Iso2Code="NE", DisplayName = "Niger", DisplayCode = "NIG", Iso3Code = "NER" });
-            pliItems.Add(new ParticipantLibraryItem { Name = "NIR", Iso2Code="NORTHRN_IRELAND", DisplayName = "Northern Ireland", DisplayCode = "NIR", Iso3Code = "NIR" });
+            pliItems.Add(new ParticipantLibraryItem { Name = "NIR", Iso2Code="NORTHERN_IRELAND", DisplayName = "Northern Ireland", DisplayCode = "NIR", Iso3Code = "NIR" });
             pliItems.Add(new ParticipantLibraryItem { Name = "NOR", Iso2Code="NO", DisplayName = "Norway", DisplayCode = "NOR", Iso3Code = "NOR" });
             pliItems.Add(new ParticipantLibraryItem { Name = "NZL", Iso2Code="NZ", DisplayName = "New Zealand", DisplayCode = "NZL", Iso3Code = "NZL" });
             pliItems.Add(new ParticipantLibraryItem { Name = "OMA", Iso2Code="OM", DisplayName = "Oman", DisplayCode = "OMA", Iso3Code = "OMN" });

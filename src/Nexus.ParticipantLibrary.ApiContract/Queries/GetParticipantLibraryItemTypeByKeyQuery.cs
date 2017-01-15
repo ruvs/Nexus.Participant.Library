@@ -5,6 +5,10 @@ namespace Nexus.ParticipantLibrary.ApiContract.Queries
 {
     public class GetParticipantLibraryItemTypeByKeyQuery : IParticipantLibraryItemTypeSingleQuery
     {
+        public GetParticipantLibraryItemTypeByKeyQuery()
+        {
+        }
+
         public GetParticipantLibraryItemTypeByKeyQuery(Guid key)
         {
             Key = key;

@@ -338,7 +338,6 @@
     <Compile Include="ParticipantLibrary\EfInitialiserBase.cs" />
     <Compile Include="ParticipantLibrary\EfParticipantLibraryReader.cs" />
     <Compile Include="ParticipantLibrary\EfParticipantLibraryWriter.cs" />
-    <Compile Include="ParticipantLibrary\ParticipantLibraryItemEfDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Config\ParticipantLibraryReadConnectionConfig.cs" />
     <Compile Include="_Config\ParticipantLibraryWriteConnectionConfig.cs" />

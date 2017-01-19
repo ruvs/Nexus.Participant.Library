@@ -5,6 +5,7 @@ using Nexus.ParticipantLibrary.Core;
 using Nexus.ParticipantLibrary.Core.Library;
 using Nexus.ParticipantLibrary.Data.Context;
 using Nexus.ParticipantLibrary.Data.Domain;
+using Nexus.ParticipantLibrary.Data.ParticipantLibrary;
 using NUnit.Framework;
 using System;
 

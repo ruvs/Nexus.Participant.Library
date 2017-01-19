@@ -17,8 +17,11 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
         private void SetupConnection(string connectionString)
         {
-            optionsBuilder = new DbContextOptionsBuilder<ParticipantLibraryContext>();
-            optionsBuilder.UseSqlServer(connectionString);
+            if (!optionsBuilder.IsConfigured) // This prevents multiple configurations
+            {
+                optionsBuilder = new DbContextOptionsBuilder<ParticipantLibraryContext>();
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
 
         public static void RegisterAutoMappings()

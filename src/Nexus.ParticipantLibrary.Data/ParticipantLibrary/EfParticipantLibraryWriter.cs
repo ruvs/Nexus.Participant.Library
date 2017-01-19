@@ -5,6 +5,7 @@ using Nexus.ParticipantLibrary.Core.Library;
 using Nexus.ParticipantLibrary.Data.Context;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 {
@@ -26,7 +27,24 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    db.ParticipantLibraryItems.Add(dto);
+                    var existingItem = db.ParticipantLibraryItems.SingleOrDefault(p => p.NexusKey == item.NexusKey);
+
+                    if (existingItem == null)
+                    {
+                        db.ParticipantLibraryItems.Add(dto);
+                    }
+                    else
+                    {
+                        existingItem.Name = item.Name;
+                        existingItem.DisplayCode = item.DisplayCode;
+                        existingItem.DisplayName = item.DisplayName;
+                        existingItem.Iso2Code = item.Iso2Code;
+                        existingItem.Iso3Code = item.Iso3Code;
+                        existingItem.TypeKey = item.TypeKey;
+
+                        db.Entry(existingItem).State = EntityState.Modified;
+                    }
+
                     db.SaveChanges();
                 }
             }

@@ -27,19 +27,36 @@ namespace Nexus.ParticipantLibrary.Core
             var saveParticipantLibraryItemCommand = command as SaveParticipantLibraryItemCommand;
             if (saveParticipantLibraryItemCommand != null)
             {
-                //AssignVersionKeyIfNotSet(saveParticipantLibraryItemCommand);
-
-                Validate(saveParticipantLibraryItemCommand);
-                
-                libraryWriter.Save(new ParticipantLibraryItemDto()
+                if (libraryReader.ReadByKey(saveParticipantLibraryItemCommand.NexusKey) == null)
                 {
-                    NexusKey = saveParticipantLibraryItemCommand.NexusKey,
-                    DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
-                    Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
-                    Name = saveParticipantLibraryItemCommand.Name,
-                    DisplayName = saveParticipantLibraryItemCommand.DisplayName,
-                    TypeKey = saveParticipantLibraryItemCommand.TypeKey,
-                });
+                    //AssignVersionKeyIfNotSet(saveParticipantLibraryItemCommand);
+
+                    Validate(saveParticipantLibraryItemCommand);
+
+                    libraryWriter.Save(new ParticipantLibraryItemDto()
+                    {
+                        NexusKey = saveParticipantLibraryItemCommand.NexusKey,
+                        DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                        Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
+                        Name = saveParticipantLibraryItemCommand.Name,
+                        DisplayName = saveParticipantLibraryItemCommand.DisplayName,
+                        TypeKey = saveParticipantLibraryItemCommand.TypeKey,
+                    });
+                }
+                else
+                {
+                    Validate(saveParticipantLibraryItemCommand);
+
+                    libraryWriter.Save(new ParticipantLibraryItemDto()
+                    {
+                        NexusKey = saveParticipantLibraryItemCommand.NexusKey,
+                        DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                        Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
+                        Name = saveParticipantLibraryItemCommand.Name,
+                        DisplayName = saveParticipantLibraryItemCommand.DisplayName,
+                        TypeKey = saveParticipantLibraryItemCommand.TypeKey,
+                    });
+                }
             }
         }
 

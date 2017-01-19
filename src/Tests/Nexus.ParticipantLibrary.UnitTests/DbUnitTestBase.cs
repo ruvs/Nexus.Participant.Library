@@ -13,6 +13,8 @@ namespace Nexus.ParticipantLibrary.UnitTests
         public DbContextOptionsBuilder<ParticipantLibraryContext> dbOptions;
         public ParticipantItemLibrary pil;
         public ParticipantLibraryContext plContext;
+        public EfParticipantLibraryReader libraryReader;
+        public EfParticipantLibraryWriter libraryWriter;
 
         public void SetupDb()
         {
@@ -22,8 +24,9 @@ namespace Nexus.ParticipantLibrary.UnitTests
             plContext = new ParticipantLibraryContext(dbOptions.Options);
 
             var iStoreReadConnectionConfig = A.Fake<IStoreReadConnectionConfig>();
-            var libraryReader = new EfParticipantLibraryReader(dbOptions, iStoreReadConnectionConfig); //A.Fake<IReadFromParticipantLibrary>();
-            var libraryWriter = A.Fake<IWriteToParticipantLibrary>();
+            var iStoreWriteConnectionConfig = A.Fake<IStoreWriteConnectionConfig>();
+            libraryReader = new EfParticipantLibraryReader(dbOptions, iStoreReadConnectionConfig);
+            libraryWriter = new EfParticipantLibraryWriter(dbOptions, iStoreWriteConnectionConfig);
             pil = new ParticipantItemLibrary(libraryWriter, libraryReader);
         }
     }

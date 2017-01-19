@@ -256,7 +256,7 @@
   <ItemGroup>
     <Compile Include="DbUnitTestBase.cs" />
     <Compile Include="WhenReadingParticipantLibraryItem.cs" />
-    <Compile Include="WhenCreatingParticipantLibraryItem.cs" />
+    <Compile Include="WhenSavingParticipantLibraryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

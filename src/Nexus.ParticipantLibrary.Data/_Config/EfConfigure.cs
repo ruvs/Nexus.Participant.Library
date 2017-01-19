@@ -1,4 +1,5 @@
-﻿using Nexus.ParticipantLibrary.Core.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Nexus.ParticipantLibrary.Core.Configuration;
 using Nexus.ParticipantLibrary.Core.Library;
 using Nexus.ParticipantLibrary.Data.ParticipantLibrary;
 using System.Configuration;
@@ -39,8 +40,8 @@ namespace Nexus.ParticipantLibrary.Data._Config
         {
             var readConnectionConfig = Container.Resolve<IStoreReadConnectionConfig>();
             var writeConnectionConfig = Container.Resolve<IStoreWriteConnectionConfig>();
-            Container.Register<IReadFromParticipantLibrary>(new EfParticipantLibraryReader(readConnectionConfig));
-            Container.Register<IWriteToParticipantLibrary>(new EfParticipantLibraryWriter(writeConnectionConfig));
+            Container.Register<IReadFromParticipantLibrary>(new EfParticipantLibraryReader(new DbContextOptionsBuilder<Context.ParticipantLibraryContext>(), readConnectionConfig));
+            Container.Register<IWriteToParticipantLibrary>(new EfParticipantLibraryWriter(new DbContextOptionsBuilder<Context.ParticipantLibraryContext>(), writeConnectionConfig));
             return base.Build();
         }
     }

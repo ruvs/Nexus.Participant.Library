@@ -9,8 +9,9 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
     public class EfInitialiserBase
     {
         protected DbContextOptionsBuilder<ParticipantLibraryContext> optionsBuilder;
-        public EfInitialiserBase(string connectionString)
+        public EfInitialiserBase(DbContextOptionsBuilder<ParticipantLibraryContext> contextOptions, string connectionString)
         {
+            optionsBuilder = contextOptions;
             SetupConnection(connectionString);
             RegisterAutoMappings();
         }

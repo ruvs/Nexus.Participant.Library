@@ -92,6 +92,7 @@ namespace Nexus.ParticipantLibrary.Core
             {
                 getAllParticipantLibraryItemsQuery.Result =
                     libraryReader.ReadAll();
+                return;
             }
 
             var getParticipantLibraryItemByKeyQuery = query as GetParticipantLibraryItemByKeyQuery;
@@ -99,6 +100,7 @@ namespace Nexus.ParticipantLibrary.Core
             {
                 getParticipantLibraryItemByKeyQuery.Result = 
                     libraryReader.ReadByKey(getParticipantLibraryItemByKeyQuery.Key);
+                return;
             }
 
             var getParticipantLibraryItemDetailsByKeyQuery = query as GetParticipantLibraryItemDetailsByKeyQuery;
@@ -106,6 +108,7 @@ namespace Nexus.ParticipantLibrary.Core
             {
                 getParticipantLibraryItemDetailsByKeyQuery.Result =
                     libraryReader.ReadDetailsByKey(getParticipantLibraryItemDetailsByKeyQuery.Key);
+                return;
             }
 
             var getParticipantLibraryItemsByTypeQuery = query as GetParticipantLibraryItemsByTypeQuery;
@@ -113,6 +116,7 @@ namespace Nexus.ParticipantLibrary.Core
             {
                 getParticipantLibraryItemsByTypeQuery.Result = 
                     libraryReader.ReadByType(getParticipantLibraryItemsByTypeQuery.TypeKey);
+                return;
             }
 
             var getParticipantLibraryItemTypeByKeyQuery = query as GetParticipantLibraryItemTypeByKeyQuery;
@@ -120,6 +124,7 @@ namespace Nexus.ParticipantLibrary.Core
             {
                 getParticipantLibraryItemTypeByKeyQuery.Result =
                     libraryReader.ReadTypeByKey(getParticipantLibraryItemTypeByKeyQuery.Key);
+                return;
             }
 
             var getAllParticipantLibraryItemTypesQuery = query as GetAllParticipantLibraryItemTypesQuery;
@@ -127,6 +132,7 @@ namespace Nexus.ParticipantLibrary.Core
             {
                 getAllParticipantLibraryItemTypesQuery.Result =
                     libraryReader.ReadAllTypes();
+                return;
             }
 
         }

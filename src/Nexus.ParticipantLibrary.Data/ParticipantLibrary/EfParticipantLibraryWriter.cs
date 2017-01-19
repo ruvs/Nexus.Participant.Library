@@ -12,13 +12,10 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
         EfInitialiserBase, 
         IWriteToParticipantLibrary
     {
-        private DbContextOptionsBuilder<ParticipantLibraryContext> optionsBuilder;
-
-        public EfParticipantLibraryWriter(IStoreWriteConnectionConfig writeConnectionConfig) 
-            : base(writeConnectionConfig.ConnectionString)
+        public EfParticipantLibraryWriter(DbContextOptionsBuilder<ParticipantLibraryContext> contextOptions, 
+            IStoreWriteConnectionConfig writeConnectionConfig) 
+            : base(contextOptions, writeConnectionConfig.ConnectionString)
         {
-            optionsBuilder = new DbContextOptionsBuilder<ParticipantLibraryContext>();
-            optionsBuilder.UseSqlServer(writeConnectionConfig.ConnectionString);
         }
 
         public void Save(ParticipantLibraryItemDto item)

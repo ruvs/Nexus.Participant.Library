@@ -16,9 +16,9 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
         EfInitialiserBase, 
         IReadFromParticipantLibrary
     {
-
-        public EfParticipantLibraryReader(IStoreReadConnectionConfig readConnectionConfig) 
-            : base(readConnectionConfig.ConnectionString)
+        public EfParticipantLibraryReader(DbContextOptionsBuilder<ParticipantLibraryContext> contextOptions,
+            IStoreReadConnectionConfig readConnectionConfig) 
+            : base(contextOptions, readConnectionConfig.ConnectionString)
         {
         }
 

@@ -10,6 +10,7 @@ namespace Nexus.ParticipantLibrary.Data.Domain
         public Guid NexusKey { get; set; } //Key
 
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(Order = 10)]
         public int Id { get; set; } //Required
 

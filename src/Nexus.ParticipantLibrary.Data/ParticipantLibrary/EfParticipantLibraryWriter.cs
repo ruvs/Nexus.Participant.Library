@@ -41,8 +41,6 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
                         existingItem.Iso2Code = item.Iso2Code;
                         existingItem.Iso3Code = item.Iso3Code;
                         existingItem.TypeKey = item.TypeKey;
-
-                        db.Entry(existingItem).State = EntityState.Modified;
                     }
 
                     db.SaveChanges();

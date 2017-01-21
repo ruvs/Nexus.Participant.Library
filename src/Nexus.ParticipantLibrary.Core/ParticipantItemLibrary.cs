@@ -37,6 +37,7 @@ namespace Nexus.ParticipantLibrary.Core
                     {
                         NexusKey = saveParticipantLibraryItemCommand.NexusKey,
                         DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                        Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
                         Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
                         Name = saveParticipantLibraryItemCommand.Name,
                         DisplayName = saveParticipantLibraryItemCommand.DisplayName,
@@ -51,6 +52,7 @@ namespace Nexus.ParticipantLibrary.Core
                     {
                         NexusKey = saveParticipantLibraryItemCommand.NexusKey,
                         DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                        Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
                         Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
                         Name = saveParticipantLibraryItemCommand.Name,
                         DisplayName = saveParticipantLibraryItemCommand.DisplayName,

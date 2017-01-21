@@ -16,7 +16,19 @@ namespace Nexus.ParticipantLibrary.UnitTests
         public EfParticipantLibraryReader libraryReader;
         public EfParticipantLibraryWriter libraryWriter;
 
-        public void SetupDb()
+        public void SetupDb(bool integrationTest = false)
+        {
+            if (integrationTest)
+            {
+                SetupIntegrationDb();
+            }
+            else
+            {
+                SetupInMemoryDb();
+            }
+        }
+
+        private void SetupInMemoryDb()
         {
             dbOptions = new DbContextOptionsBuilder<ParticipantLibraryContext>();
             dbOptions.UseInMemoryDatabase();
@@ -25,6 +37,22 @@ namespace Nexus.ParticipantLibrary.UnitTests
 
             var iStoreReadConnectionConfig = A.Fake<IStoreReadConnectionConfig>();
             var iStoreWriteConnectionConfig = A.Fake<IStoreWriteConnectionConfig>();
+            libraryReader = new EfParticipantLibraryReader(dbOptions, iStoreReadConnectionConfig);
+            libraryWriter = new EfParticipantLibraryWriter(dbOptions, iStoreWriteConnectionConfig);
+            pil = new ParticipantItemLibrary(libraryWriter, libraryReader);
+        }
+
+        private void SetupIntegrationDb()
+        {
+            var connString = @"Data Source=HV-MUFASA\DEV01;Initial Catalog=ParticipantLibraryTests;Integrated Security=true;Connect Timeout=15;";
+
+            dbOptions = new DbContextOptionsBuilder<ParticipantLibraryContext>();
+            dbOptions.UseSqlServer(connString);
+
+            plContext = new ParticipantLibraryContext(dbOptions.Options);
+
+            var iStoreReadConnectionConfig = new ParticipantLibraryReadConnectionConfig(connString);
+            var iStoreWriteConnectionConfig = new ParticipantLibraryWriteConnectionConfig(connString);
             libraryReader = new EfParticipantLibraryReader(dbOptions, iStoreReadConnectionConfig);
             libraryWriter = new EfParticipantLibraryWriter(dbOptions, iStoreWriteConnectionConfig);
             pil = new ParticipantItemLibrary(libraryWriter, libraryReader);

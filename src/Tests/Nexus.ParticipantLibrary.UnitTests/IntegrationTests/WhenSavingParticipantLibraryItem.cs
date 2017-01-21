@@ -9,7 +9,7 @@ using NUnit.Framework;
 using Shouldly;
 using System;
 
-namespace Nexus.ParticipantLibrary.UnitTests
+namespace Nexus.ParticipantLibrary.UnitTests.IntegrationTests
 {
     [TestFixture]
     public class WhenSavingParticipantLibraryItem : DbUnitTestBase
@@ -27,10 +27,10 @@ namespace Nexus.ParticipantLibrary.UnitTests
         [SetUp]
         public void Setup()
         {
-            base.SetupDb();
+            base.SetupDb(true);
 
-            SetupParticipantLibraryTypes();
-            SetupParticipantLibraryItems();
+            //SetupParticipantLibraryTypes();
+            //SetupParticipantLibraryItems();
         }
 
         private void SetupParticipantLibraryTypes()
@@ -52,67 +52,42 @@ namespace Nexus.ParticipantLibrary.UnitTests
         [TearDown]
         public void Cleanup()
         {
-            plContext.Database.EnsureDeleted();
+            //plContext.Database.EnsureDeleted();
         }
 
         [Test]
-        public void ShouldAddParticipantLibraryItemViaCommand()
+        public void Int_ShouldUpdateParticipantLibraryItemViaCommand()
         {
+            Guid pKey = Guid.Parse("F0228211-6F9C-450E-9C2D-02EF670EA549");
+
+            var getQuery = new GetParticipantLibraryItemByKeyQuery(pKey);
+            pil.Execute(getQuery);
+
+            var itemToUpdate = getQuery.Result;
+
             var saveCommand = new SaveParticipantLibraryItemCommand()
             {
-                NexusKey = Guid.NewGuid(),
-                Name = "newName",
-                DisplayCode = "newDisplayCode",
-                DisplayName = "newDisplayName",
-                TypeKey = Guid.NewGuid(),
-                Iso2Code = "NewIso2Code",
-                Iso3Code = "NewIso3Code"
-            };
-
-            var libraryWriter = A.Fake<IWriteToParticipantLibrary>();
-            var pil = new ParticipantItemLibrary(libraryWriter, A.Fake<IReadFromParticipantLibrary>());
-
-            pil.Execute(saveCommand);
-
-            A.CallTo(() => libraryWriter.Save(A<ParticipantLibraryItemDto>.That.Matches(
-                x => x.NexusKey == saveCommand.NexusKey &&
-                x.DisplayCode == saveCommand.DisplayCode &&
-                x.DisplayName == saveCommand.DisplayName &&
-                x.Iso2Code == saveCommand.Iso2Code &&
-                x.Iso3Code == saveCommand.Iso3Code &&
-                x.Name == saveCommand.Name &&
-                x.TypeKey == saveCommand.TypeKey
-            ))).MustHaveHappened();
-        }
-
-        [Test]
-        public void ShouldUpdateParticipantLibraryItemViaCommand()
-        {
-            var saveCommand = new SaveParticipantLibraryItemCommand()
-            {
-                NexusKey = pliItem1.NexusKey,
+                NexusKey = itemToUpdate.NexusKey,
                 Name = PL_ITEM_1_NAME_UPDATED,
+                DisplayName = itemToUpdate.DisplayName,
                 DisplayCode = PL_ITEM_1_DISPLAY_CODE_UPDATED,
-                TypeKey = pliType2.NexusKey,
+                Iso2Code = itemToUpdate.Iso2Code,
+                Iso3Code = itemToUpdate.Iso3Code,
+                TypeKey = itemToUpdate.TypeKey,
             };
 
             pil.Execute(saveCommand);
 
             //Assert
-            var query = new GetParticipantLibraryItemByKeyQuery()
-            {
-                Key = pliItem1.NexusKey
-            };
+            pil.Execute(getQuery);
+            var result = getQuery.Result;
 
-            pil.Execute(query);
-            var result = query.Result;
-
-            result.NexusKey.ShouldBe(pliItem1.NexusKey);
+            result.NexusKey.ShouldBe(pKey);
             result.Name.ShouldBe(PL_ITEM_1_NAME_UPDATED);
             result.DisplayCode.ShouldBe(PL_ITEM_1_DISPLAY_CODE_UPDATED);
-            result.Iso2Code.ShouldBe(pliItem1.Iso2Code);
-            result.TypeKey.ShouldBe(pliType2.NexusKey);
-            result.TypeName.ShouldBe(pliType2.DisplayName);
+            result.Iso2Code.ShouldBe(itemToUpdate.Iso2Code);
+            result.TypeKey.ShouldBe(itemToUpdate.TypeKey);
+            result.TypeName.ShouldBe(itemToUpdate.TypeName);
         }
     }
 }

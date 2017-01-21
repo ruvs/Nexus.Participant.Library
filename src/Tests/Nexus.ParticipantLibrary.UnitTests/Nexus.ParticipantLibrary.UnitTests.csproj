@@ -255,6 +255,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DbUnitTestBase.cs" />
+    <Compile Include="IntegrationTests\WhenSavingParticipantLibraryItem.cs" />
     <Compile Include="WhenReadingParticipantLibraryItem.cs" />
     <Compile Include="WhenSavingParticipantLibraryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

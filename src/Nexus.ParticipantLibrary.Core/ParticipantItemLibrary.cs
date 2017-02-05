@@ -27,38 +27,21 @@ namespace Nexus.ParticipantLibrary.Core
             var saveParticipantLibraryItemCommand = command as SaveParticipantLibraryItemCommand;
             if (saveParticipantLibraryItemCommand != null)
             {
-                if (libraryReader.ReadByKey(saveParticipantLibraryItemCommand.NexusKey) == null)
+                Validate(saveParticipantLibraryItemCommand);
+
+                libraryWriter.Save(new ParticipantLibraryItemDto()
                 {
-                    //AssignVersionKeyIfNotSet(saveParticipantLibraryItemCommand);
+                    NexusKey = saveParticipantLibraryItemCommand.NexusKey,
+                    DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                    Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
+                    Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
+                    Name = saveParticipantLibraryItemCommand.Name,
+                    DisplayName = saveParticipantLibraryItemCommand.DisplayName,
+                    TypeKey = saveParticipantLibraryItemCommand.TypeKey,
+                });
 
-                    Validate(saveParticipantLibraryItemCommand);
+                //    //AssignVersionKeyIfNotSet(saveParticipantLibraryItemCommand);
 
-                    libraryWriter.Save(new ParticipantLibraryItemDto()
-                    {
-                        NexusKey = saveParticipantLibraryItemCommand.NexusKey,
-                        DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
-                        Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
-                        Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
-                        Name = saveParticipantLibraryItemCommand.Name,
-                        DisplayName = saveParticipantLibraryItemCommand.DisplayName,
-                        TypeKey = saveParticipantLibraryItemCommand.TypeKey,
-                    });
-                }
-                else
-                {
-                    Validate(saveParticipantLibraryItemCommand);
-
-                    libraryWriter.Save(new ParticipantLibraryItemDto()
-                    {
-                        NexusKey = saveParticipantLibraryItemCommand.NexusKey,
-                        DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
-                        Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
-                        Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
-                        Name = saveParticipantLibraryItemCommand.Name,
-                        DisplayName = saveParticipantLibraryItemCommand.DisplayName,
-                        TypeKey = saveParticipantLibraryItemCommand.TypeKey,
-                    });
-                }
             }
         }
 

@@ -5,11 +5,12 @@ using Nexus.ParticipantLibrary.ApiContract.Queries;
 using Nexus.ParticipantLibrary.ApiContract.Dtos;
 using System;
 using Nexus.ParticipantLibrary.ApiContract.Commands;
+using Nexus.ParticipantLibrary.Middleware.Hubs;
 
 namespace Nexus.ParticipantLibrary.Middleware.Controllers
 {
     [RoutePrefix("participants")]
-    public class ParticipantLibraryController : ApiController
+    public class ParticipantLibraryController : ApiControllerWithHub<ParticipantLibraryBroadcaster>
     {
         private readonly IAmAParticipantLibrary library;
 
@@ -55,6 +56,9 @@ namespace Nexus.ParticipantLibrary.Middleware.Controllers
         {
             var query = new GetParticipantLibraryItemDetailsByKeyQuery(key);
             library.Execute(query);
+
+            PublishEvent(ParticipantLibraryBroadcasterEventsEnum.ClientsAll_GetDetailsByKey);
+
             return query.Result;
         }
 
@@ -83,6 +87,19 @@ namespace Nexus.ParticipantLibrary.Middleware.Controllers
             var query = new GetAllParticipantLibraryItemTypesQuery();
             library.Execute(query);
             return query.Result;
+        }
+
+        private void PublishEvent(ParticipantLibraryBroadcasterEventsEnum eventName)
+        {
+            switch(eventName)
+            {
+                case ParticipantLibraryBroadcasterEventsEnum.ClientsAll_GetDetailsByKey:
+                    Hub.Clients.All.broadcastMessage("NAME", "Hey from signal R GetDetailsByKey!");
+                    //Clients.All.OnGDBK("Hey from signal R GetDetailsByKey!");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -60,6 +60,8 @@ namespace Nexus.ParticipantLibrary.Api
             var optionsBuilder = new DbContextOptionsBuilder<ParticipantLibraryContext>();
             optionsBuilder.UseSqlServer(apiAppSettings.ConnectionString_ParticipantLibrary_Read);
             var ctx = new ParticipantLibraryContext(optionsBuilder.Options);
+
+            app.MapSignalR();
         }
 
         private IAmAParticipantLibrary BootStrapParticipantLibrary(IParticipantLibraryLogger logWriter)

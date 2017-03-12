@@ -4,6 +4,6 @@ namespace Nexus.ParticipantLibrary.Core.Library
 {
     public interface IWriteToParticipantLibrary
     {
-        void Save(ParticipantLibraryItemDto item);
+        DbOperationType Save(ParticipantLibraryItemDto item);
     }
 }

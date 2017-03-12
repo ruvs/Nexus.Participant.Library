@@ -1,15 +1,9 @@
-﻿using FakeItEasy;
-using Microsoft.EntityFrameworkCore;
-using Nexus.ParticipantLibrary.ApiContract.Queries;
-using Nexus.ParticipantLibrary.Core;
-using Nexus.ParticipantLibrary.Core.Library;
-using Nexus.ParticipantLibrary.Data._Config;
-using Nexus.ParticipantLibrary.Data.Context;
+﻿using Nexus.ParticipantLibrary.ApiContract.Queries;
 using Nexus.ParticipantLibrary.Data.Domain;
-using Nexus.ParticipantLibrary.Data.ParticipantLibrary;
 using NUnit.Framework;
 using Shouldly;
 using System;
+using System.Linq;
 
 namespace Nexus.ParticipantLibrary.UnitTests
 {
@@ -21,7 +15,9 @@ namespace Nexus.ParticipantLibrary.UnitTests
         private const string TYPE_1_NAME = "TYPE_1_NAME";
         private const string TYPE_2_NAME = "TYPE_2_NAME";
         private const string PL_ITEM_1_NAME = "PL_ITEM_1_NAME";
+        private const string PL_ITEM_2_NAME = "PL_ITEM_2_NAME";
         private ParticipantLibraryItem pliItem1;
+        private ParticipantLibraryItem pliItem2;
 
         [SetUp]
         public void Setup()
@@ -36,21 +32,59 @@ namespace Nexus.ParticipantLibrary.UnitTests
         {
             pliType1 = new ParticipantLibraryItemType { NexusKey = Guid.NewGuid(), Name = TYPE_1_NAME };
             pliType2 = new ParticipantLibraryItemType { NexusKey = Guid.NewGuid(), Name = TYPE_2_NAME };
-            plContext.ParticipantLibraryItemTypes.Add(pliType1);
-            plContext.ParticipantLibraryItemTypes.Add(pliType2);
+            _plContext.ParticipantLibraryItemTypes.Add(pliType1);
+            _plContext.ParticipantLibraryItemTypes.Add(pliType2);
+            _plContext.SaveChanges();
         }
 
         private void SetupParticipantLibraryItems()
         {
-            pliItem1 = new ParticipantLibraryItem { NexusKey = Guid.NewGuid(), Name = PL_ITEM_1_NAME, TypeKey = pliType2.NexusKey };
-            plContext.ParticipantLibraryItems.Add(pliItem1);
-            plContext.SaveChanges();
+            pliItem1 = new ParticipantLibraryItem { NexusKey = Guid.NewGuid(), Name = PL_ITEM_1_NAME, TypeKey = pliType1.NexusKey };
+            pliItem2 = new ParticipantLibraryItem { NexusKey = Guid.NewGuid(), Name = PL_ITEM_2_NAME, TypeKey = pliType2.NexusKey };
+            _plContext.ParticipantLibraryItems.Add(pliItem1);
+            _plContext.ParticipantLibraryItems.Add(pliItem2);
+            _plContext.SaveChanges();
        }
 
         [TearDown]
         public void Cleanup()
         {
-            plContext.Database.EnsureDeleted();
+            _plContext.Database.EnsureDeleted();
+        }
+
+        [Test]
+        public void ShouldReadParticipantLibraryItemByKey()
+        {
+            var query = new GetParticipantLibraryItemByKeyQuery()
+            {
+                Key = pliItem1.NexusKey
+            };
+
+            _piLibrary.Execute(query);
+            var result = query.Result;
+
+            //Assert
+            result.NexusKey.ShouldBe(pliItem1.NexusKey);
+            result.Name.ShouldBe(PL_ITEM_1_NAME);
+            result.TypeKey.ShouldBe(pliType1.NexusKey);
+            result.TypeName.ShouldBe(TYPE_1_NAME);
+        }
+
+        [Test]
+        public void ShouldReadAllParticipantLibraryItems()
+        {
+            var query = new GetAllParticipantLibraryItemsQuery();
+
+            _piLibrary.Execute(query);
+            var result = query.Result.ToList();
+
+            //Assert
+            result.Count.ShouldBe(2);
+            var item1 = result.Single(x => x.NexusKey == pliItem1.NexusKey);
+            item1.TypeKey.ShouldBe(pliType1.NexusKey);
+
+            var item2 = result.Single(x => x.NexusKey == pliItem2.NexusKey);
+            item2.TypeKey.ShouldBe(pliType2.NexusKey);
         }
 
         [Test]
@@ -61,21 +95,19 @@ namespace Nexus.ParticipantLibrary.UnitTests
                 Key = pliItem1.NexusKey
             };
 
-            pil.Execute(query);
+            _piLibrary.Execute(query);
             var result = query.Result;
 
             //Assert
             result.NexusKey.ShouldBe(pliItem1.NexusKey);
             result.Name.ShouldBe(PL_ITEM_1_NAME);
-            result.TypeName.ShouldBe(TYPE_2_NAME);
+            result.TypeName.ShouldBe(TYPE_1_NAME);
             result.Types.Count.ShouldBe(2);
 
-            foreach(var t in result.Types)
+            foreach (var t in result.Types)
             {
                 t.Name.ShouldBeOneOf(pliType1.Name, pliType2.Name);
             }
-
-            //A.CallTo(() => libraryReader.ReadDetailsByKey(pliItem1.NexusKey)).MustHaveHappened();
         }
     }
 }

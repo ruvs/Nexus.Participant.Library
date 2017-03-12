@@ -1,4 +1,5 @@
-﻿using Nexus.ParticipantLibrary.Core.Library;
+﻿using MassTransit;
+using Nexus.ParticipantLibrary.Core.Library;
 
 namespace Nexus.ParticipantLibrary.Core.Configuration
 {
@@ -40,7 +41,7 @@ namespace Nexus.ParticipantLibrary.Core.Configuration
         private static IAmAParticipantLibrary Build(NanoContainer context)
         {
             var handler = new ParticipantItemLibrary(context.Resolve<IWriteToParticipantLibrary>(),
-                context.Resolve<IReadFromParticipantLibrary>());
+                context.Resolve<IReadFromParticipantLibrary>(), context.Resolve<IPublishEndpoint>());
             return handler;
         }
 

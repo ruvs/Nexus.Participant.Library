@@ -57,7 +57,9 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
             {
                 using (var db = new ParticipantLibraryContext(optionsBuilder.Options))
                 {
-                    domainPli = db.ParticipantLibraryItems.SingleOrDefault(p => p.NexusKey == key);
+                    domainPli = db.ParticipantLibraryItems
+                        .Include(x => x.Type)
+                        .SingleOrDefault(p => p.NexusKey == key);
                 }
 
                 var toReturn = Mapper.Map<ParticipantLibraryItemDto>(domainPli);

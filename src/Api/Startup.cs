@@ -13,6 +13,8 @@ using NLog;
 using Nexus.ParticipantLibrary.Api;
 using Nexus.ParticipantLibrary.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using MassTransit;
+using System;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -71,6 +73,7 @@ namespace Nexus.ParticipantLibrary.Api
             IAmAParticipantLibrary participantLibrary = ParticipantLibraryConfigure
                 .Init()
                 .With(logWriter)
+                .With(ConfigureBus())
                 //.With(claimsPrincipalResolver)
                 .EfPersistence()
                 .WithConnectionsNamed(CONNECTION_STRING_NAME_READ, CONNECTION_STRING_NAME_WRITE)
@@ -78,7 +81,24 @@ namespace Nexus.ParticipantLibrary.Api
 
             return participantLibrary;
         }
+
+        private static IPublishEndpoint ConfigureBus()
+        {
+            string _rabbitMqSignalRServiceQueue = ConfigurationManager.AppSettings["SignalRNotificationServiceQueue"];
+
+            var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
+            {
+                var host = cfg.Host(new Uri(ConfigurationManager.AppSettings["RabbitMqHostIntegrationTests"]), hst =>
+                {
+                    hst.Username(ConfigurationManager.AppSettings["RabbitMqUser"]);
+                    hst.Password(ConfigurationManager.AppSettings["RabbitMqUser"]);
+                });
+            });
+
+            return bus;
+        }
     }
+
 
 
     internal class ApiAppSettings : IAppSettings

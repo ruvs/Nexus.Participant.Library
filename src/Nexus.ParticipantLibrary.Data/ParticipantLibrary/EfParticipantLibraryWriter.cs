@@ -19,9 +19,10 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
         {
         }
 
-        public void Save(ParticipantLibraryItemDto item)
+        public DbOperationType Save(ParticipantLibraryItemDto item)
         {
             var dto = Mapper.Map<Domain.ParticipantLibraryItem>(item);
+            DbOperationType dbOperationType;
 
             try
             {
@@ -31,10 +32,12 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
                     if (existingItem == null)
                     {
+                        dbOperationType = DbOperationType.Create;
                         db.ParticipantLibraryItems.Add(dto);
                     }
                     else
                     {
+                        dbOperationType = DbOperationType.Update;
                         existingItem.Name = item.Name;
                         existingItem.DisplayCode = item.DisplayCode;
                         existingItem.DisplayName = item.DisplayName;
@@ -45,11 +48,15 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
 
                     db.SaveChanges();
                 }
+
+                return dbOperationType;
             }
             catch(Exception)
             {
                 throw;
             }
+
+            #region oldcode
             //using (var connection = new SqlConnection(ConnectionStringWrite))
             //{
 
@@ -93,6 +100,7 @@ namespace Nexus.ParticipantLibrary.Data.ParticipantLibrary
             //        }
             //    }
             //}
+            #endregion
         }
     }
 }

@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GreenPipes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\packages\GreenPipes.1.0.9\lib\net452\GreenPipes.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MassTransit, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\MassTransit.3.5.5\lib\net452\MassTransit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.1.1.0\lib\net451\Microsoft.EntityFrameworkCore.dll</HintPath>
       <Private>True</Private>
@@ -89,6 +97,14 @@
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NewId, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewId.3.0.0\lib\net452\NewId.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
@@ -227,6 +243,7 @@
     <Compile Include="Configuration\ContainerRegistration.cs" />
     <Compile Include="Configuration\ParticipantLibraryConfigure.cs" />
     <Compile Include="Configuration\NanoContainer.cs" />
+    <Compile Include="Library\DbOperationType.cs" />
     <Compile Include="Logging\IParticipantLibraryLogger.cs" />
     <Compile Include="ParticipantItemLibrary.cs" />
     <Compile Include="Library\IReadFromParticipantLibrary.cs" />
@@ -237,6 +254,10 @@
     <ProjectReference Include="..\Nexus.ParticipantLibrary.ApiContract\Nexus.ParticipantLibrary.ApiContract.csproj">
       <Project>{377af48e-1ad9-480e-9cb3-eb6bc455cc1f}</Project>
       <Name>Nexus.ParticipantLibrary.ApiContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nexus.ParticipantLibrary.Messages\Nexus.ParticipantLibrary.Messages.csproj">
+      <Project>{58D23596-2D35-4D78-B595-C067BD85FB3A}</Project>
+      <Name>Nexus.ParticipantLibrary.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,11 @@
-﻿using Nexus.ParticipantLibrary.ApiContract.Commands;
+﻿using MassTransit;
+using Nexus.ParticipantLibrary.ApiContract.Commands;
 using Nexus.ParticipantLibrary.ApiContract.Dtos;
 using Nexus.ParticipantLibrary.ApiContract.Queries;
 using Nexus.ParticipantLibrary.Core.Configuration;
 using Nexus.ParticipantLibrary.Core.Library;
+using Nexus.ParticipantLibrary.Messages;
+using Nexus.ParticipantLibrary.Messages.Interfaces;
 using System.Collections.Generic;
 
 namespace Nexus.ParticipantLibrary.Core
@@ -10,16 +13,19 @@ namespace Nexus.ParticipantLibrary.Core
     public class ParticipantItemLibrary : IAmAParticipantLibrary
     {
         //private readonly IResolveClaimsPrincipal claimsPrincipalResolver;
-        private readonly IWriteToParticipantLibrary libraryWriter;
-        private readonly IReadFromParticipantLibrary libraryReader;
+        private readonly IWriteToParticipantLibrary _libraryWriter;
+        private readonly IReadFromParticipantLibrary _libraryReader;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         public ParticipantItemLibrary(//IResolveClaimsPrincipal claimsPrincipalResolver, 
                                          IWriteToParticipantLibrary libraryWriter,
-                                         IReadFromParticipantLibrary libraryReader)
+                                         IReadFromParticipantLibrary libraryReader,
+                                         IPublishEndpoint publishEndpoint)
         {
             //this.claimsPrincipalResolver = claimsPrincipalResolver;
-            this.libraryWriter = libraryWriter;
-            this.libraryReader = libraryReader;
+            this._libraryWriter = libraryWriter;
+            this._libraryReader = libraryReader;
+            this._publishEndpoint = publishEndpoint;
         }
 
         public void Execute(IParticipantLibraryCommand command)
@@ -27,22 +33,64 @@ namespace Nexus.ParticipantLibrary.Core
             var saveParticipantLibraryItemCommand = command as SaveParticipantLibraryItemCommand;
             if (saveParticipantLibraryItemCommand != null)
             {
-                Validate(saveParticipantLibraryItemCommand);
-
-                libraryWriter.Save(new ParticipantLibraryItemDto()
-                {
-                    NexusKey = saveParticipantLibraryItemCommand.NexusKey,
-                    DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
-                    Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
-                    Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
-                    Name = saveParticipantLibraryItemCommand.Name,
-                    DisplayName = saveParticipantLibraryItemCommand.DisplayName,
-                    TypeKey = saveParticipantLibraryItemCommand.TypeKey,
-                });
-
-                //    //AssignVersionKeyIfNotSet(saveParticipantLibraryItemCommand);
-
+                SaveParticipantLibraryItem(saveParticipantLibraryItemCommand);
+                return;
             }
+        }
+
+        private void SaveParticipantLibraryItem(SaveParticipantLibraryItemCommand saveParticipantLibraryItemCommand)
+        {
+            //AssignVersionKeyIfNotSet(saveParticipantLibraryItemCommand);
+            Validate(saveParticipantLibraryItemCommand);
+
+            var dbOperationType = _libraryWriter.Save(new ParticipantLibraryItemDto()
+            {
+                NexusKey = saveParticipantLibraryItemCommand.NexusKey,
+                DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
+                Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
+                Name = saveParticipantLibraryItemCommand.Name,
+                DisplayName = saveParticipantLibraryItemCommand.DisplayName,
+                TypeKey = saveParticipantLibraryItemCommand.TypeKey,
+            });
+
+            switch (dbOperationType)
+            {
+                case DbOperationType.Create:
+                    PublishItemCreatedEvent(saveParticipantLibraryItemCommand);
+                    break;
+                case DbOperationType.Update:
+                    PublishItemUpdatedEvent(saveParticipantLibraryItemCommand);
+                    break;
+            }
+        }
+
+        private void PublishItemCreatedEvent(SaveParticipantLibraryItemCommand saveParticipantLibraryItemCommand)
+        {
+            _publishEndpoint.Publish<IParticipantLibraryItemCreated>(new ParticipantLibraryItemCreated
+            {
+                NexusKey = saveParticipantLibraryItemCommand.NexusKey,
+                DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
+                Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
+                Name = saveParticipantLibraryItemCommand.Name,
+                DisplayName = saveParticipantLibraryItemCommand.DisplayName,
+                TypeKey = saveParticipantLibraryItemCommand.TypeKey,
+            });
+        }
+
+        private void PublishItemUpdatedEvent(SaveParticipantLibraryItemCommand saveParticipantLibraryItemCommand)
+        {
+            _publishEndpoint.Publish<IParticipantLibraryItemUpdated>(new ParticipantLibraryItemUpdated
+            {
+                NexusKey = saveParticipantLibraryItemCommand.NexusKey,
+                DisplayCode = saveParticipantLibraryItemCommand.DisplayCode,
+                Iso2Code = saveParticipantLibraryItemCommand.Iso2Code,
+                Iso3Code = saveParticipantLibraryItemCommand.Iso3Code,
+                Name = saveParticipantLibraryItemCommand.Name,
+                DisplayName = saveParticipantLibraryItemCommand.DisplayName,
+                TypeKey = saveParticipantLibraryItemCommand.TypeKey,
+            });
         }
 
         //private void AssignVersionKeyIfNotSet(SaveParticipantLibraryItemCommand command)
@@ -93,7 +141,7 @@ namespace Nexus.ParticipantLibrary.Core
             if (getAllParticipantLibraryItemsQuery != null)
             {
                 getAllParticipantLibraryItemsQuery.Result =
-                    libraryReader.ReadAll();
+                    _libraryReader.ReadAll();
                 return;
             }
 
@@ -101,7 +149,7 @@ namespace Nexus.ParticipantLibrary.Core
             if (getParticipantLibraryItemByKeyQuery != null)
             {
                 getParticipantLibraryItemByKeyQuery.Result = 
-                    libraryReader.ReadByKey(getParticipantLibraryItemByKeyQuery.Key);
+                    _libraryReader.ReadByKey(getParticipantLibraryItemByKeyQuery.Key);
                 return;
             }
 
@@ -109,7 +157,7 @@ namespace Nexus.ParticipantLibrary.Core
             if (getParticipantLibraryItemDetailsByKeyQuery != null)
             {
                 getParticipantLibraryItemDetailsByKeyQuery.Result =
-                    libraryReader.ReadDetailsByKey(getParticipantLibraryItemDetailsByKeyQuery.Key);
+                    _libraryReader.ReadDetailsByKey(getParticipantLibraryItemDetailsByKeyQuery.Key);
                 return;
             }
 
@@ -117,7 +165,7 @@ namespace Nexus.ParticipantLibrary.Core
             if (getParticipantLibraryItemsByTypeQuery != null)
             {
                 getParticipantLibraryItemsByTypeQuery.Result = 
-                    libraryReader.ReadByType(getParticipantLibraryItemsByTypeQuery.TypeKey);
+                    _libraryReader.ReadByType(getParticipantLibraryItemsByTypeQuery.TypeKey);
                 return;
             }
 
@@ -125,7 +173,7 @@ namespace Nexus.ParticipantLibrary.Core
             if (getParticipantLibraryItemTypeByKeyQuery != null)
             {
                 getParticipantLibraryItemTypeByKeyQuery.Result =
-                    libraryReader.ReadTypeByKey(getParticipantLibraryItemTypeByKeyQuery.Key);
+                    _libraryReader.ReadTypeByKey(getParticipantLibraryItemTypeByKeyQuery.Key);
                 return;
             }
 
@@ -133,7 +181,7 @@ namespace Nexus.ParticipantLibrary.Core
             if (getAllParticipantLibraryItemTypesQuery != null)
             {
                 getAllParticipantLibraryItemTypesQuery.Result =
-                    libraryReader.ReadAllTypes();
+                    _libraryReader.ReadAllTypes();
                 return;
             }
 

@@ -1,20 +1,22 @@
 ﻿using FakeItEasy;
+using MassTransit;
+using MassTransit.TestFramework;
 using Microsoft.EntityFrameworkCore;
 using Nexus.ParticipantLibrary.Core;
-using Nexus.ParticipantLibrary.Core.Library;
 using Nexus.ParticipantLibrary.Data._Config;
 using Nexus.ParticipantLibrary.Data.Context;
 using Nexus.ParticipantLibrary.Data.ParticipantLibrary;
 
 namespace Nexus.ParticipantLibrary.UnitTests
 {
-    public class DbUnitTestBase
+    public class DbUnitTestBase : InMemoryTestFixture
     {
-        public DbContextOptionsBuilder<ParticipantLibraryContext> dbOptions;
-        public ParticipantItemLibrary pil;
-        public ParticipantLibraryContext plContext;
-        public EfParticipantLibraryReader libraryReader;
-        public EfParticipantLibraryWriter libraryWriter;
+        public DbContextOptionsBuilder<ParticipantLibraryContext> _dbOptions;
+        public ParticipantItemLibrary _piLibrary;
+        public ParticipantLibraryContext _plContext;
+        public EfParticipantLibraryReader _libraryReader;
+        public EfParticipantLibraryWriter _libraryWriter;
+        public IPublishEndpoint _publishEndpoint;
 
         public void SetupDb(bool integrationTest = false)
         {
@@ -30,32 +32,34 @@ namespace Nexus.ParticipantLibrary.UnitTests
 
         private void SetupInMemoryDb()
         {
-            dbOptions = new DbContextOptionsBuilder<ParticipantLibraryContext>();
-            dbOptions.UseInMemoryDatabase();
+            _dbOptions = new DbContextOptionsBuilder<ParticipantLibraryContext>();
+            _dbOptions.UseInMemoryDatabase();
 
-            plContext = new ParticipantLibraryContext(dbOptions.Options);
+            _plContext = new ParticipantLibraryContext(_dbOptions.Options);
 
             var iStoreReadConnectionConfig = A.Fake<IStoreReadConnectionConfig>();
             var iStoreWriteConnectionConfig = A.Fake<IStoreWriteConnectionConfig>();
-            libraryReader = new EfParticipantLibraryReader(dbOptions, iStoreReadConnectionConfig);
-            libraryWriter = new EfParticipantLibraryWriter(dbOptions, iStoreWriteConnectionConfig);
-            pil = new ParticipantItemLibrary(libraryWriter, libraryReader);
+            _publishEndpoint = A.Fake<IPublishEndpoint>();
+            _libraryReader = new EfParticipantLibraryReader(_dbOptions, iStoreReadConnectionConfig);
+            _libraryWriter = new EfParticipantLibraryWriter(_dbOptions, iStoreWriteConnectionConfig);
+            _piLibrary = new ParticipantItemLibrary(_libraryWriter, _libraryReader, _publishEndpoint);
         }
 
         private void SetupIntegrationDb()
         {
             var connString = @"Data Source=HV-MUFASA\DEV01;Initial Catalog=ParticipantLibraryTests;Integrated Security=true;Connect Timeout=15;";
 
-            dbOptions = new DbContextOptionsBuilder<ParticipantLibraryContext>();
-            dbOptions.UseSqlServer(connString);
+            _dbOptions = new DbContextOptionsBuilder<ParticipantLibraryContext>();
+            _dbOptions.UseSqlServer(connString);
 
-            plContext = new ParticipantLibraryContext(dbOptions.Options);
+            _plContext = new ParticipantLibraryContext(_dbOptions.Options);
 
             var iStoreReadConnectionConfig = new ParticipantLibraryReadConnectionConfig(connString);
             var iStoreWriteConnectionConfig = new ParticipantLibraryWriteConnectionConfig(connString);
-            libraryReader = new EfParticipantLibraryReader(dbOptions, iStoreReadConnectionConfig);
-            libraryWriter = new EfParticipantLibraryWriter(dbOptions, iStoreWriteConnectionConfig);
-            pil = new ParticipantItemLibrary(libraryWriter, libraryReader);
+
+            _libraryReader = new EfParticipantLibraryReader(_dbOptions, iStoreReadConnectionConfig);
+            _libraryWriter = new EfParticipantLibraryWriter(_dbOptions, iStoreWriteConnectionConfig);
+            _piLibrary = new ParticipantItemLibrary(_libraryWriter, _libraryReader, Bus);
         }
     }
 }

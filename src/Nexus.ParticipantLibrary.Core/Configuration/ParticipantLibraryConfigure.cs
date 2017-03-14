@@ -74,9 +74,9 @@ namespace Nexus.ParticipantLibrary.Core.Configuration
 
         private void ValidateThatBusIsConfigured()
         {
-            if (container.Resolve<IBus>() == null)
+            if (container.Resolve<IPublishEndpoint>() == null)
             {
-                throw new ParticipantLibraryConfigurationException("You must first register an IBus");
+                throw new ParticipantLibraryConfigurationException("You must first register an IPublishEndpoint");
             }
         }
 

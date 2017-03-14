@@ -52,6 +52,7 @@ namespace Nexus.ParticipantLibrary.Core.Configuration
             //ValidateThatClaimsPrincipalResolverIsConfigured();
             ValidateThatWriterIsConfigured();
             ValidateThatReaderIsConfigured();
+            ValidateThatBusIsConfigured();
             return Container.Resolve<IAmAParticipantLibrary>();
         }
 
@@ -68,6 +69,14 @@ namespace Nexus.ParticipantLibrary.Core.Configuration
             if (container.Resolve<IReadFromParticipantLibrary>() == null)
             {
                 throw new ParticipantLibraryConfigurationException("You must first register an IReadFromParticipantLibrary");
+            }
+        }
+
+        private void ValidateThatBusIsConfigured()
+        {
+            if (container.Resolve<IBus>() == null)
+            {
+                throw new ParticipantLibraryConfigurationException("You must first register an IBus");
             }
         }
 
